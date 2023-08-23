@@ -1,8 +1,8 @@
-package com.core.module.test.service;
-
-public interface TestService {
-
-	String getTestMysql();
-
-
-}
+//package com.core.module.test.service;
+//
+//public interface TestService {
+//
+//	String getTestMysql();
+//
+//
+//}
