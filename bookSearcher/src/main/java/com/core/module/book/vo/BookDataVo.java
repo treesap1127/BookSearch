@@ -1,13 +1,12 @@
 package com.core.module.book.vo;
 
-import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-@Alias("bookData")
+//@Alias("bookData")
 public class BookDataVo {
 	    private Long seqNo;
 	    private String isbnThirteenNo;
