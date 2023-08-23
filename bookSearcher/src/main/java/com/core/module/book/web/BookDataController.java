@@ -37,13 +37,20 @@ public class BookDataController {
 		    e.printStackTrace();
 		}
 	}
+
 	@PostMapping("/upload")
 	public ResponseEntity<?> upload(@RequestBody MultipartFile excelFile) throws IOException{
 		String message = "fileUpload Complete";
 		bookDataService.bookUpload(excelFile);
 		
 		return ResponseEntity.ok(message);
+	}
 
 
+	@PostMapping("/uploadTest")
+	public ResponseEntity<?> uploadTest(@RequestBody MultipartFile excel) throws IOException{
+		bookDataService.upload(excel);
+
+		return ResponseEntity.ok("fileUpload Complete");
 	}
 }

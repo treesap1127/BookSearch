@@ -15,5 +15,5 @@ public interface BookDataService<T> {
 
 	void bookUpload(MultipartFile excelFile) throws IOException;
 
-   
+	void upload(MultipartFile excel) throws IOException;
 }

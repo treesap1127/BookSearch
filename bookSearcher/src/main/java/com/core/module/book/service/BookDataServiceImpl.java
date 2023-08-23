@@ -61,4 +61,9 @@ public class BookDataServiceImpl implements BookDataService<BookDataVo> {
 		System.out.println("test");
 		
 	}
+
+	@Override
+	public void upload(MultipartFile excel) throws IOException {
+		bookDataDao.upload();
+	}
 }

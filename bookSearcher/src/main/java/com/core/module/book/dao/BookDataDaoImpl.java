@@ -9,6 +9,8 @@ import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.CreateIndexRequest;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.stereotype.Repository;
@@ -43,7 +45,20 @@ public class BookDataDaoImpl<T> implements BookDataDao<T> {
             e.printStackTrace();
         }
     }
- }
+
+    @Override
+    public void upload() throws IOException {
+        String name = "spring";
+        CreateIndexRequest request = new CreateIndexRequest(name);
+
+        request.settings(Settings.builder()
+                .put("index.number_of_shards", 1)
+                .put("index.number_of_replicas", 0)
+        );
+
+        client.indices().create(request, RequestOptions.DEFAULT);
+    }
+}
 
 //    	List<IndexQuery> queries = new ArrayList<>();
 //        for (T document : list) {
