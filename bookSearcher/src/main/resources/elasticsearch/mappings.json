@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "title": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
+    },
+    "author": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
+    },
+    "description": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
+    },
+    "isbn": {
+      "type": "long"
+    },
+    "publisher": {
+      "type": "long"
+    },
+    "kdc": {
+      "type": "long"
+    }
+  }
+}

@@ -57,7 +57,13 @@ public class BookDataDaoImpl<T> implements BookDataDao<T> {
         );
 
         client.indices().create(request, RequestOptions.DEFAULT);
+        client.close();
     }
+
+
+
+
+
 }
 
 //    	List<IndexQuery> queries = new ArrayList<>();
