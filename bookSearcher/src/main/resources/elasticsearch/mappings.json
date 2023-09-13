@@ -1,5 +1,11 @@
 {
   "properties": {
+    "id": {
+      "type": "long"
+    },
+    "isbn": {
+      "type": "long"
+    },
     "title": {
       "type": "text",
       "analyzer": "nori_analyzer"
@@ -8,18 +14,27 @@
       "type": "text",
       "analyzer": "nori_analyzer"
     },
+    "publisher": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
+    },
+    "img": {
+      "type": "text"
+    },
     "description": {
       "type": "text",
       "analyzer": "nori_analyzer"
     },
-    "isbn": {
-      "type": "long"
-    },
-    "publisher": {
-      "type": "long"
-    },
     "kdc": {
       "type": "long"
+    },
+    "titleSub": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
+    },
+    "authorSub": {
+      "type": "text",
+      "analyzer": "nori_analyzer"
     }
   }
 }
