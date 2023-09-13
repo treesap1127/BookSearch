@@ -1,10 +1,8 @@
-package com.core.module.book.dao;
+package com.core.book.dao;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import com.core.module.book.vo.BookDataVo;
 
 
 public interface BookDataDao<T> {

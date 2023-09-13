@@ -1,11 +1,18 @@
-package com.core.module.book.document;
+package com.core.book.document;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.*;
-
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Mapping;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Document(indexName = "book", createIndex = true)
 @Setting(settingPath = "/elasticsearch/settings.json")
 @Mapping(mappingPath = "/elasticsearch/mappings.json")
@@ -13,31 +20,21 @@ public class Book {
     @Id
     private Long id;
 
-    @Field(type = FieldType.Long)
     private Long isbn;
 
-    @Field(type = FieldType.Text)
     private String title;
 
-    @Field(type = FieldType.Text)
     private String author;
 
-    @Field(type = FieldType.Long)
-    private Long publisher;
+    private String publisher;
 
-    @Field(type = FieldType.Text)
     private String image;
 
-    @Field(type = FieldType.Text)
     private String description;
 
-    @Field(type = FieldType.Long)
-    private Long kdc;
+    private String kdc;
 
-    @Field(type = FieldType.Text)
     private String titleSub;
 
-    @Field(type = FieldType.Text)
     private String authorSub;
-
 }

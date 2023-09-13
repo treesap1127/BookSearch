@@ -1,4 +1,4 @@
-package com.core.module.book.dao;
+package com.core.book.dao;
 
 import java.io.IOException;
 import java.util.List;
