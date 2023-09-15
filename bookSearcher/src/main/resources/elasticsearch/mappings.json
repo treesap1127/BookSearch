@@ -1,40 +1,42 @@
 {
-  "properties": {
-    "id": {
-      "type": "long"
-    },
-    "isbn": {
-      "type": "long"
-    },
-    "title": {
-      "type": "text",
-      "analyzer": "nori_analyzer"
-    },
-    "author": {
-      "type": "text",
-      "analyzer": "nori_analyzer"
-    },
-    "publisher": {
-      "type": "text",
-      "analyzer": "nori_analyzer"
-    },
-    "img": {
-      "type": "text"
-    },
-    "description": {
-      "type": "text",
-      "analyzer": "nori_analyzer"
-    },
-    "kdc": {
-      "type": "long"
-    },
-    "titleSub": {
-      "type": "text",
-      "analyzer": "nori_analyzer"
-    },
-    "authorSub": {
-      "type": "text",
-      "analyzer": "nori_analyzer"
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "long"
+      },
+      "isbn": {
+        "type": "long"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "custom_nori"
+      },
+      "author": {
+        "type": "text",
+        "analyzer": "custom_nori"
+      },
+      "publisher": {
+        "type": "text",
+        "analyzer": "custom_nori"
+      },
+      "img": {
+        "type": "text"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "custom_nori"
+      },
+      "kdc": {
+        "type": "long"
+      },
+      "titleSub": {
+        "type": "text",
+        "analyzer": "custom_nori"
+      },
+      "authorSub": {
+        "type": "text",
+        "analyzer": "custom_nori"
+      }
     }
   }
 }
