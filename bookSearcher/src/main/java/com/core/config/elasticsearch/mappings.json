@@ -9,18 +9,17 @@
       },
       "title": {
         "type": "text",
-        "analyzer": "custom_nori",
-        "copy_to": ["mainInfoText"]
+        "analyzer": "custom_nori"
       },
       "author": {
         "type": "text",
         "analyzer": "custom_nori",
-        "copy_to": ["mainInfoText"]
+        "copy_to": ["subInfoText"]
       },
       "publisher": {
         "type": "text",
         "analyzer": "custom_nori",
-        "copy_to": ["mainInfoText"]
+        "copy_to": ["subInfoText"]
       },
       "img": {
         "type": "text"
@@ -32,7 +31,7 @@
       "kdc": {
         "type": "long"
       },
-      "mainInfoText": {
+      "subInfoText": {
         "type": "text",
         "analyzer": "custom_nori"
       }
