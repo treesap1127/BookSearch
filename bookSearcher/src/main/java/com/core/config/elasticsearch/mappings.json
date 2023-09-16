@@ -28,14 +28,6 @@
       },
       "kdc": {
         "type": "long"
-      },
-      "titleSub": {
-        "type": "text",
-        "analyzer": "custom_nori"
-      },
-      "authorSub": {
-        "type": "text",
-        "analyzer": "custom_nori"
       }
     }
   }

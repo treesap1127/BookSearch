@@ -71,7 +71,7 @@
         "analyzer": "custom_nori"
       },
       "img": {
-        "type": "text"
+        "type": "text"`
       },
       "description": {
         "type": "text",
@@ -79,14 +79,6 @@
       },
       "kdc": {
         "type": "long"
-      },
-      "titleSub": {
-        "type": "text",
-        "analyzer": "custom_nori"
-      },
-      "authorSub": {
-        "type": "text",
-        "analyzer": "custom_nori"
       }
     }
   }
