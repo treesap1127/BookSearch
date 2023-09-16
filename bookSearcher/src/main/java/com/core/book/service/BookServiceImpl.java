@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void upload() throws IOException {
 		List<Book> list = csvReader.readFile("/Users/jihunjang/Downloads/도서 데이터/202111-v4.csv");
-
+//알림 테스트
 		List<IndexQuery> indexQueries = list.stream()
 				.map(book -> new IndexQueryBuilder()
 						.withId(book.getId().toString())
