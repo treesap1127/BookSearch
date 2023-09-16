@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.core.module.book.service.BookDataService;
-import com.core.module.book.vo.BookDataVo;
+import com.core.module.book.vo.Book;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,9 +24,9 @@ public class BookDataController {
 	@RequestMapping("/indexing")
 	public <T> void bookData() {
 		System.out.println("DataSet Start");
-		List<BookDataVo> bookDataList=bookDataService.bookData();
+		List<Book> bookDataList=bookDataService.bookData();
 		try {
-		    Class<?> bookDataClass = Class.forName("com.core.module.book.vo.BookDataVo");
+		    Class<?> bookDataClass = Class.forName("com.core.module.book.vo.Book");
 			System.out.println("DataSet Complete");
 
 			System.out.println("indexing Start");
@@ -39,11 +39,9 @@ public class BookDataController {
 	}
 	@PostMapping("/upload")
 	public ResponseEntity<?> upload(@RequestBody MultipartFile excelFile) throws IOException{
-		String message = "fileUpload Complete";
-		bookDataService.bookUpload(excelFile);
-		
-		return ResponseEntity.ok(message);
+		String message =bookDataService.bookUpload(excelFile); 
 
+		return ResponseEntity.ok(message);
 
 	}
 }

@@ -5,15 +5,15 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.core.module.book.vo.BookDataVo;
+import com.core.module.book.vo.Book;
 
 public interface BookDataService<T> {
 
-	List<BookDataVo> bookData();
+	List<Book> bookData();
 
-    void bookIndexing(String indexName, List<T> documents, Class<T> bookDataVo);
+    void bookIndexing(String indexName, List<T> documents, Class<T> book);
 
-	void bookUpload(MultipartFile excelFile) throws IOException;
+	String bookUpload(MultipartFile excelFile) throws IOException;
 
    
 }

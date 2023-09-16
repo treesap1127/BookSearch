@@ -1,0 +1,19 @@
+{
+	"settings": {
+    "analysis" : {
+      "analyzer": {
+        "nori": {
+          "type": "custom",
+          "tokenizer": "nori_mixed"
+        }
+      }, 
+      "tokenizer": {
+        "nori_mixed": {
+          "type": "nori_tokenizer",
+          "decompound_mode": "mixed"
+        }
+      }
+    }
+  }
+}
+  

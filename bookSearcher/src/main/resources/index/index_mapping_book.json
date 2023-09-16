@@ -1,0 +1,40 @@
+{
+	"mappings": {
+		"properties": {
+			"isbn": {
+				"type": "long"
+			},
+			"title": {
+				"type": "text",
+				"analyzer": "nori_analyzer"
+			},
+			"author": {
+				"type": "text",
+				"analyzer": "nori_analyzer"
+			},
+			"publisher": {
+				"type": "text",
+				"analyzer": "nori_analyzer"
+			},
+			"image": {
+				"type": "text"
+			},
+			"description": {
+				"type": "text",
+				"analyzer": "nori_analyzer"
+			},
+			"kdc": {
+				"type": "double"
+			},
+			"titleSub": {
+				"type": "text",
+				"analyzer": "nori_analyzer"
+			},
+			"authorSub": {
+				"type": "text",
+				"analyzer": "nori_analyzer"
+			}
+		}
+	}
+}
+  
