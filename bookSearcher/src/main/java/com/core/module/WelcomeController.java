@@ -11,6 +11,6 @@ import lombok.RequiredArgsConstructor;
 public class WelcomeController {
 	@RequestMapping
 	public String main() {
-		return "test2";
+		return "test";
 	}
 }
