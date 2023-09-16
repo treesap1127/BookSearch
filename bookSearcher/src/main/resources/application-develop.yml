@@ -6,6 +6,8 @@ elasticsearch:
   host: localhost
   port: 9200
   scheme: http
+  rest:
+    connection-timeout: 3600000
 
 logging:
   level:

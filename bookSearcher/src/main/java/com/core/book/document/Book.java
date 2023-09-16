@@ -14,8 +14,8 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @AllArgsConstructor
 @Builder
 @Document(indexName = "book", createIndex = true)
-@Setting(settingPath = "/elasticsearch/settings.json")
-@Mapping(mappingPath = "/elasticsearch/mappings.json")
+@Setting(settingPath = "/com/core/config/elasticsearch/settings.json")
+@Mapping(mappingPath = "/com/core/config/elasticsearch/mappings.json")
 public class Book {
     @Id
     private Long id;
@@ -34,7 +34,7 @@ public class Book {
 
     private String kdc;
 
-    private String titleSub;
-
-    private String authorSub;
+//    private String titleSub;
+//
+//    private String authorSub;
 }
