@@ -50,7 +50,6 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public SearchHits<Book> search(String keyword) {
-    	//test
 
 //		NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
 //				.withQuery(QueryBuilders.functionScoreQuery(
