@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class WelcomeController {
 	@RequestMapping
 	public String main() {
-		System.out.println("test1");
+		System.out.println("test");
 		return "test";
 	}
 }
