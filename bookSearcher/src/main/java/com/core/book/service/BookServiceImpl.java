@@ -8,20 +8,17 @@ import com.core.book.document.Book;
 import com.core.utils.CSVReader;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
-import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilder;
-import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
-import org.elasticsearch.search.sort.ScoreSortBuilder;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.IndexedObjectInformation;
-import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +29,7 @@ public class BookServiceImpl implements BookService {
     private final ElasticsearchOperations elasticsearchOperations;
     private final CSVReader csvReader;
 	private final ElasticsearchRestTemplate elasticsearchRestTemplate;
+	private final RestHighLevelClient elasticsearchClient;
 
     @Override
     public void upload() throws IOException {
@@ -49,42 +47,21 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public SearchHits<Book> search(String keyword) {
+	public SearchResponse search(String keyword) throws IOException {
 
-//		NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
-//				.withQuery(QueryBuilders.functionScoreQuery(
-//						QueryBuilders.boolQuery()
-//								.should(QueryBuilders.matchQuery("title", keyword))
-//								.should(QueryBuilders.matchQuery("subInfoText", keyword))
-//								.should(QueryBuilders.matchQuery("description", keyword)),
-//						ScoreFunctionBuilders.weightFactorFunction("title", 3)
-//								.weightFactorFunction("subInfoText", 2)
-//								.weightFactorFunction("description", 1))
-//						.build());
-//
-//		return elasticsearchRestTemplate.search(searchQuery, Book.class);
+		SearchRequest searchRequest = new SearchRequest("book");
+		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
+		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
+				.should(QueryBuilders.matchQuery("title", keyword).boost(3))
+				.should(QueryBuilders.matchQuery("subInfoText", keyword).boost(1))
+				.should(QueryBuilders.matchQuery("description", keyword).boost(2));
 
-//		SearchHits hits = searchResponse.getHits();
-//		return hits.stream().map(hit -> {
-//			Book book = new Book();
-//			book.setId(hit.getId());
-//			book.setTitle(hit.getSourceAsMap().get("title").toString());
-//			book.setSubInfoText(hit.getSourceAsMap().get("subInfoText").toString());
-//			book.setDescription(hit.getSourceAsMap().get("description").toString());
-//			return book;
-//		}).collect(Collectors.toList());
+		sourceBuilder.query(boolQueryBuilder);
+		sourceBuilder.size(10);
 
+		searchRequest.source(sourceBuilder);
 
-//		NativeSearchQueryBuilder builder = new NativeSearchQueryBuilder();
-//		NativeSearchQuery query = builder.withQuery(QueryBuilders.functionScoreQuery()
-//				.add(QueryBuilders.matchQuery("name", keyword), ScoreFunctionBuilders.weightFactorFunction(8))
-//				.add(QueryBuilders.matchQuery("subTitle", keyword), ScoreFunctionBuilders.weightFactorFunction(2))
-//				.add(QueryBuilders.matchQuery("keywords", keyword), ScoreFunctionBuilders.weightFactorFunction(2))
-//				.scoreMode("sum"))
-//				.build();
-//
-//		return elasticsearchRestTemplate.search(query, Book.class);
-	return null;
+		return elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
     }
 }

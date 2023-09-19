@@ -28,7 +28,7 @@ public class BookController {
 	}
 
 	@PostMapping("/search")
-	public ResponseEntity<?> search(String keyword){
+	public ResponseEntity<?> search(String keyword) throws IOException {
 		return ResponseEntity.ok(bookService.search(keyword));
 	}
 }
