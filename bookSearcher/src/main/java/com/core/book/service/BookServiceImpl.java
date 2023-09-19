@@ -48,7 +48,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public SearchResponse search(String keyword) throws IOException {
-
+//	TODO: 2개 이상의 개념 검색 -> 개념들의 융합에 부합하는 검색 결과 도출 필요
 		SearchRequest searchRequest = new SearchRequest("book");
 		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
