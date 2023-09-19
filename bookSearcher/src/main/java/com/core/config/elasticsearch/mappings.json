@@ -13,7 +13,7 @@
       },
       "author": {
         "type": "text",
-        "analyzer": "custom_nori",
+        "analyzer": "author_nori",
         "copy_to": ["subInfoText"]
       },
       "publisher": {
