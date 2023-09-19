@@ -33,8 +33,4 @@ public class Book {
     private String description;
 
     private String kdc;
-
-//    private String titleSub;
-//
-//    private String authorSub;
 }

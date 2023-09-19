@@ -12,7 +12,6 @@
           "type": "custom",
           "tokenizer": "nori_none",
           "filter": [
-            "unique",
             "nori_readingform",
             "nori_part_of_speech"
           ]

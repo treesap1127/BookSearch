@@ -42,8 +42,6 @@ public class CSVReader {
                 book.setImage(csvRecord.get(5));
                 book.setDescription(csvRecord.get(6));
                 book.setKdc(csvRecord.get(7).trim());
-//                book.setTitleSub(csvRecord.get(8));
-//                book.setAuthorSub(csvRecord.get(9));
 
                 books.add(book);
             }
