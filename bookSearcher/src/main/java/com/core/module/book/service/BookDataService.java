@@ -11,8 +11,6 @@ public interface BookDataService<T> {
 
 	List<Book> bookData();
 
-    void bookIndexing(String indexName, List<T> documents, Class<T> book);
-
 	String bookUpload(MultipartFile excelFile) throws IOException;
 
    

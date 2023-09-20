@@ -12,16 +12,14 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.core.module.book.vo.Book;
-
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
-@Component
+@Log4j2
 @RequiredArgsConstructor
-public class CsvUpload {
+public class BookCsvUpload {
 	public static List<Map<String, String>> ReadCsvFile(MultipartFile file) throws IOException {
         List<Map<String, String>> data = new ArrayList<>();
         
@@ -34,12 +32,6 @@ public class CsvUpload {
         	     CSVParser csvParser = new CSVParser(inputStreamReader, CSVFormat.DEFAULT.withFirstRecordAsHeader())) {
         	  	int cnt = 0;
         	    for (CSVRecord record : csvParser) {
-//        	        String isbnStr = record.get("isbn13");
-//        	        String title = record.get("title");
-//        	        String author = record.get("author");
-//        	        String publisher = record.get("publisher");
-//        	        String image = record.get("img_url");
-//        	        String description = record.get("description");
         	        String isbnStr = record.get("ISBN_THIRTEEN_NO");
         	        String title = record.get("TITLE_NM");
         	        String author = record.get("AUTHR_NM");
@@ -65,11 +57,11 @@ public class CsvUpload {
         	        data.add(itemMap);
         	        cnt ++;
         	        if(cnt % 30000 == 0) {
-        	        	System.out.println(cnt+"cnt 갯수");
+        	        	log.debug(cnt+"cnt 갯수");
         	        }
         	    }
         	} catch (IOException e) {
-        	    e.printStackTrace();
+        	    log.error("filePasing error ",e);
         	}
         
         return data;

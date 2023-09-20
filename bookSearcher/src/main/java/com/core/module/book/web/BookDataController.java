@@ -21,22 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class BookDataController {
 	private final BookDataService bookDataService;
 	
-	@RequestMapping("/indexing")
-	public <T> void bookData() {
-		System.out.println("DataSet Start");
-		List<Book> bookDataList=bookDataService.bookData();
-		try {
-		    Class<?> bookDataClass = Class.forName("com.core.module.book.vo.Book");
-			System.out.println("DataSet Complete");
-
-			System.out.println("indexing Start");
-			bookDataService.bookIndexing("2009",bookDataList, bookDataClass);
-			System.out.println("indexing Complete");
-			
-		} catch (ClassNotFoundException e) {
-		    e.printStackTrace();
-		}
-	}
 	@PostMapping("/upload")
 	public ResponseEntity<?> upload(@RequestBody MultipartFile excelFile) throws IOException{
 		String message =bookDataService.bookUpload(excelFile); 
