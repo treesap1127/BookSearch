@@ -18,9 +18,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @Mapping(mappingPath = "/com/core/config/elasticsearch/mappings.json")
 public class Book {
     @Id
-    private Long id;
-
-    private Long isbn;
+    private Long isbn13;
 
     private String title;
 

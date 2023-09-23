@@ -37,7 +37,7 @@ public class BookServiceImpl implements BookService {
 
 		List<IndexQuery> indexQueries = list.stream()
 				.map(book -> new IndexQueryBuilder()
-						.withId(book.getId().toString())
+						.withId(book.getIsbn13().toString())
 						.withObject(book)
 						.build())
 				.collect(Collectors.toList());

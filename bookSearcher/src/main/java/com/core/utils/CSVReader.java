@@ -34,8 +34,7 @@ public class CSVReader {
                 }
 
                 Book book = new Book();
-                book.setId(Long.parseLong(csvRecord.get(0).trim()));
-                book.setIsbn(Long.parseLong(csvRecord.get(1).trim()));
+                book.setIsbn13(Long.parseLong(csvRecord.get(1).trim()));
                 book.setTitle(csvRecord.get(2));
                 book.setAuthor(csvRecord.get(3));
                 book.setPublisher(csvRecord.get(4).trim());
