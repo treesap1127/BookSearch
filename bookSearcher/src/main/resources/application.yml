@@ -43,6 +43,12 @@ elasticsearch:
   port: 9200
   protocol: http
   
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          elasticsearch: DEBUG
 data:
   mongodb:
     host: localhost
@@ -51,12 +57,6 @@ data:
     password: 1234
     database: bookSearcher
     uri: mongodb://localhost:27017/bookSearcher
-logging:
-  level:
-    org:
-      springframework:
-        data:
-          elasticsearch: DEBUG
 mybatis:
   type-aliases-package: com.core.module
   config-location: classpath:mybatis/config/Mybatis_Config.xml
