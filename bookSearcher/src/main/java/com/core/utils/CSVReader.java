@@ -35,12 +35,12 @@ public class CSVReader {
 
                 Book book = new Book();
                 book.setIsbn13(Long.parseLong(csvRecord.get(1).trim()));
-                book.setTitle(csvRecord.get(2));
-                book.setAuthor(csvRecord.get(3));
-                book.setPublisher(csvRecord.get(4).trim());
-                book.setImage(csvRecord.get(5));
-                book.setDescription(csvRecord.get(6));
-                book.setKdc(csvRecord.get(7).trim());
+                book.setTitle(csvRecord.get(3));
+                book.setAuthor(csvRecord.get(4));
+                book.setPublisher(csvRecord.get(5).trim());
+                book.setImage(csvRecord.get(9));
+                book.setDescription(csvRecord.get(10));
+                book.setKdc(csvRecord.get(11).trim());
 
                 books.add(book);
             }
