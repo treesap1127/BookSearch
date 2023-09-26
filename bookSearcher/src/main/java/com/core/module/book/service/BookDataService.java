@@ -1,17 +1,15 @@
 package com.core.module.book.service;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.core.module.book.vo.Book;
+import com.core.module.indexCnt.IndexCntVo;
 
 public interface BookDataService<T> {
 
-	List<Book> bookData();
+	String bookInitUpload(IndexCntVo indexCntVo) throws IOException;
 
-	String bookUpload(MultipartFile excelFile) throws IOException;
+	String bookUpload(IndexCntVo indexCntVo) throws IOException;
 
-   
 }

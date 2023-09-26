@@ -37,9 +37,9 @@ public class IndexingImpl<T> implements  Indexing<T> {
     private final ElasticSearchConfig config;
 
 	/**
-     * 인덱싱
+     * 인덱싱 초기화 후 데이터 삽입
      */
-    public String Indexing(String indexName, List<Map<String, String>> list) {
+    public String InitIndexing(String indexName, List<Map<String, String>> list) {
         RestHighLevelClient client = config.createConnection();
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -60,14 +60,67 @@ public class IndexingImpl<T> implements  Indexing<T> {
             log.info(indexName + " success to create index");
         } else {
             log.info(indexName + " fail to create index");
+            return "인덱스 생성을 실패하였습니다.";
         }
-
-        bulkIndexing(indexName, list, client);
+        try{
+        	bulkIndexing(indexName, list, client);	
+        } catch(Exception e) {
+        	log.info("인덱싱에 실패하였습니다.");
+        	return "인덱싱에 실패하였습니다.";
+        }
 
         config.closeConnection(client);
         stopWatch.stop();
+        log.info("인덱싱에 완료했습니다.");
 		return "인덱싱을 완료했습니다.";
     }
+    
+    /**
+     * 인덱스 초기화
+     */
+	@Override
+	public String initIndex(String indexName) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        if(isExistIndex(indexName)) {
+        	if(!deleteIndex(indexName)) {
+                log.info(indexName + "fail to delete index");
+                return "인덱스 삭제에 실패하였습니다.";
+            }
+        }
+        stopWatch.stop();
+        log.info("인덱싱에 삭제에 성공하였습니다.");
+		return "인덱스 삭제에 성공하였습니다.";
+	}
+	
+	/**
+	 * 벌크 인덱싱
+	 */
+	@Override
+	public String bulkIndexing(String indexName, List<Map<String, String>> list) {
+		RestHighLevelClient client = config.createConnection();
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        if (list == null || list.isEmpty()) {
+            log.error("Empty Data");
+            return "데이터가 존재 하지 않습니다.";
+        }
+        
+        try{
+        	bulkIndexing(indexName, list, client);	
+        } catch(Exception e) {
+        	log.info("인덱싱에 실패하였습니다");
+        	return "인덱싱에 실패하였습니다.";
+        }
+
+        config.closeConnection(client);
+        stopWatch.stop();
+        log.info("인덱싱에 완료했습니다");
+		return "인덱싱을 완료했습니다.";
+	}
+
     
     /**
 	 * 엘라스틱서치 인덱스 존재여부 확인
@@ -97,26 +150,10 @@ public class IndexingImpl<T> implements  Indexing<T> {
      * @return
      */
 	private boolean createIndex(String indexName, RestHighLevelClient client) {
-//		String mappingdoc = getDocuments(indexName,"mapping");
-//		String Settingdoc = getDocuments(indexName,"setting");
 		String doc = getDocuments(indexName,"all");
-//		
-//		CreateIndexRequest request = new CreateIndexRequest(indexName);
-//
-//
-//		try {
-//			CreateIndexResponse createIndexResponse =client.indices().create(request, RequestOptions.DEFAULT);
-//			return createIndexResponse.isAcknowledged();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		}
 		
         CreateIndexRequest request = new CreateIndexRequest(indexName);
 
-//        request.mapping(mappingdoc, XContentType.JSON);
-//		request.settings(Settingdoc, XContentType.JSON);
 		request.source(doc, XContentType.JSON);
 
         try {
@@ -189,19 +226,6 @@ public class IndexingImpl<T> implements  Indexing<T> {
             List<Map<String, String>> indexableData,
             RestHighLevelClient client
     ) {
-//		List<IndexQuery> indexQueries = indexableData.stream()
-//			    .map(data -> {
-//			        String id = data.get("id");
-//			        return new IndexQueryBuilder()
-//			            .withId(id)
-//			            .withObject(data)
-//			            .build();
-//			    })
-//			    .collect(Collectors.toList());
-//
-//			List<IndexedObjectInformation> result = elasticsearchOperations.bulkIndex(indexQueries, IndexCoordinates.of("book"));
-//	}
-
         BulkRequest bulkRequest = new BulkRequest();
 
         for (Map<String, String> el : indexableData) {
@@ -218,7 +242,8 @@ public class IndexingImpl<T> implements  Indexing<T> {
                 }
             }
         } catch (IOException e) {
-            System.out.println("index error," + e.getMessage());
+        	log.info("인덱싱에 실패하였습니다."+e.getMessage());
         }
     }
+
 }

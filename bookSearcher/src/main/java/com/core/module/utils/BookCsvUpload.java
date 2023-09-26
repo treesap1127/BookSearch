@@ -63,7 +63,7 @@ public class BookCsvUpload {
         	} catch (IOException e) {
         	    log.error("filePasing error ",e);
         	}
-        
+        log.info("pasing succese");
         return data;
     }
 }

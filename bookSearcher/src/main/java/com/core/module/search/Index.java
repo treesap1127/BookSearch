@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Index {
 
-    BOOK("도서", "book", new String[]{"isbn", "title", "author", "publisher", "image", "description", "kdc","titleSub","authorSub"}, new String[]{"title", "content"}),
-    ;
+    BOOK("도서", "book", new String[]{"isbn", "title", "author", "publisher", "image", "description", "kdc","titleSub","authorSub"}, new String[]{"title", "content"});
 
     private final String description;
     private final String name;
