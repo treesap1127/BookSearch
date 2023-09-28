@@ -43,14 +43,6 @@ elasticsearch:
   port: 9200
   protocol: http
   
-data:
-  mongodb:
-    host: localhost
-    port: 27017
-    username: user
-    password: 1234
-    database: bookSearcher
-    uri: mongodb://localhost:27017/bookSearcher
 logging:
   level:
     org:
