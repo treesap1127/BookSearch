@@ -39,9 +39,9 @@ spring:
 #    max-age: 3600
 
 elasticsearch:
-  ip: localhost
+  host: localhost
   port: 9200
-  protocol: http
+  scheme: http
   
 logging:
   level:
@@ -49,14 +49,6 @@ logging:
       springframework:
         data:
           elasticsearch: DEBUG
-data:
-  mongodb:
-    host: localhost
-    port: 27017
-    username: user
-    password: 1234
-    database: bookSearcher
-    uri: mongodb://localhost:27017/bookSearcher
 mybatis:
   type-aliases-package: com.core.module
   config-location: classpath:mybatis/config/Mybatis_Config.xml

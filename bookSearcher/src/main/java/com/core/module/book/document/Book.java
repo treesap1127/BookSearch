@@ -1,4 +1,4 @@
-package com.core.book.document;
+package com.core.module.book.document;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,11 +14,11 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @AllArgsConstructor
 @Builder
 @Document(indexName = "book", createIndex = true)
-@Setting(settingPath = "/com/core/config/elasticsearch/settings.json")
-@Mapping(mappingPath = "/com/core/config/elasticsearch/mappings.json")
+@Setting(settingPath = "/srchSetting/settings.json")
+@Mapping(mappingPath = "/srchSetting/mappings.json")
 public class Book {
     @Id
-    private Long isbn13;
+    private Long isbn;
 
     private String title;
 
