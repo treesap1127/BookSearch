@@ -27,9 +27,14 @@ public class IndexDaoImpl implements IndexDao {
 
 	@Override
 	public void bulkIndex(List<IndexQuery> indexQueries, String indexNm) {
-		elasticsearchOperations.bulkIndex(indexQueries, IndexCoordinates.of(indexNm));
+        elasticsearchOperations.bulkIndex(indexQueries, IndexCoordinates.of(indexNm));
 	}
-
+	
+	@Override
+	public void deleteIndex(IndexVo indexVo) {
+		elasticsearchOperations.indexOps(IndexCoordinates.of(indexVo.getIndexName())).delete();
+	}
+	
 	@Override
 	public SearchResponse search(IndexVo indexVo) throws IOException {
 		//	TODO: 2개 이상의 개념 검색 -> 개념들의 융합에 부합하는 검색 결과 도출 필요
@@ -49,6 +54,10 @@ public class IndexDaoImpl implements IndexDao {
 
 		searchRequest.source(sourceBuilder);
 		return elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
-		
 	}
+	
+	private int calculateDelay(int retry) {
+        return (int) (Math.pow(2, retry) * 100); // 0.2초 딜레이
+    }
+	
 }

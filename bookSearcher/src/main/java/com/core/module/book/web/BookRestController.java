@@ -15,12 +15,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/book")
 @RequiredArgsConstructor
-public class BookController {
+public class BookRestController {
 	private final BookService bookService;
 	
 	/**
 	 * 인덱싱 작업
-	 * @param indexCntVo
+	 * @param indexVo
 	 * @return
 	 * @throws IOException
 	 */
@@ -31,6 +31,21 @@ public class BookController {
 		String message = bookService.Index(indexVo);
 		return ResponseEntity.ok(message);
 	}
+	
+	/**
+	 * 인덱싱 작업
+	 * @param indexVo
+	 * @return
+	 * @throws IOException
+	 */
+	@PostMapping("/deleteIndex")
+	public ResponseEntity<?> deleteIndex(IndexVo indexVo) throws IOException{
+		indexVo.setIndexName("book");
+		
+		String message = bookService.deleteIndex(indexVo);
+		return ResponseEntity.ok(message);
+	}
+	
 	/**
 	 * 검색
 	 * @param keyword

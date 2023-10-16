@@ -14,4 +14,6 @@ public interface IndexDao {
 
 	SearchResponse search(IndexVo indexVo) throws IOException;
 
+	void deleteIndex(IndexVo indexVo);
+
 }

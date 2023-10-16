@@ -36,8 +36,10 @@ public class BookCsvUpload {
 
         	    indexQueries = csvParser.getRecords().stream()
         	        .map(record -> {
+        	        	if(String.valueOf(record.get("ISBN_THIRTEEN_NO")).toLowerCase().contains("x")) {
+        	        		return null;
+        	        	}
         	            Book book = new Book();
-        	            
         	            Long isbn = Long.parseLong(record.get("ISBN_THIRTEEN_NO"));
         	            String title = record.get("TITLE_NM");
         	            String author = record.get("AUTHR_NM");

@@ -39,6 +39,12 @@ public class BookServiceImpl implements BookService {
 		
 		return "인덱싱 성공";
 	}
+	
+	@Override
+	public String deleteIndex(IndexVo indexVo) {
+		indexDao.deleteIndex(indexVo);
+		return "인덱싱 삭제";
+	}
 
 	@Override
 	public SearchResponse search(IndexVo indexVo) throws IOException {

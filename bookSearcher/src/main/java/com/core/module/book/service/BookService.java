@@ -12,5 +12,7 @@ public interface BookService {
 
 	String Index(IndexVo indexVo) throws IOException;
 
+	String deleteIndex(IndexVo indexVo);
+
 
 }
