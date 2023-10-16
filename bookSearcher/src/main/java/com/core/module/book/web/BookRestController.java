@@ -54,7 +54,6 @@ public class BookRestController {
 	 */
 	@PostMapping("/search")
 	public ResponseEntity<?> search(IndexVo indexVo) throws IOException {
-		System.out.println("test");
 		indexVo.setIndexName("book");
 		return ResponseEntity.ok(bookService.search(indexVo));
 	}

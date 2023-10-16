@@ -19,7 +19,8 @@
 		(
 			INDEX_SEQ
 			, INDEX_NAME
-			, INDEX_CNT)
+			, INDEX_CNT
+		)
 		VALUES(
 			#{indexSeq}
 			, #{indexName}
