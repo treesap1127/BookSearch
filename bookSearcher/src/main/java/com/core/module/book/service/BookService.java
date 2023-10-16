@@ -12,7 +12,7 @@ public interface BookService<T> {
 
 	String bookInitUpload(IndexVo indexVo) throws IOException;
 
-	String bookUpload(IndexVo indexVo);
+	String bookUpload(IndexVo indexVo) throws IOException;
 
 
 }

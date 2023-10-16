@@ -148,7 +148,7 @@ public class IndexingImpl<T> implements Indexing<T> {
 	    } finally {
 	        config.closeConnection(client);
 	    }
-	
+
 	    return acknowledged;
 	}
 
@@ -199,7 +199,7 @@ public class IndexingImpl<T> implements Indexing<T> {
     }
 
 
-	/**
+		/**
         * 인덱스 삭제
         */
        public boolean deleteIndex(String indexName) {
