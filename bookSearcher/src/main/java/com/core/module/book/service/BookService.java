@@ -4,15 +4,15 @@ import java.io.IOException;
 
 import org.elasticsearch.action.search.SearchResponse;
 
-import com.core.module.index.IndexVo;
+import com.core.module.index.vo.IndexVo;
 
-public interface BookService {
+public interface BookService<T> {
 
 	SearchResponse search(IndexVo indexVo) throws IOException;
 
-	String Index(IndexVo indexVo) throws IOException;
+	String bookInitUpload(IndexVo indexVo) throws IOException;
 
-	String deleteIndex(IndexVo indexVo);
+	String bookUpload(IndexVo indexVo);
 
 
 }

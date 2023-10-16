@@ -1,4 +1,4 @@
-package com.core.module.index;
+package com.core.module.index.vo;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
@@ -6,12 +6,12 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 
 @Data
-@Alias("indexCnt")
+@Alias("IndexVo")
 public class IndexVo {
 	private String indexName;
+	private String fileName;
 	private String keyword;
 	private int indexSeq;
-	private int indexCnt;
 	private MultipartFile excelFile;
 	
 }

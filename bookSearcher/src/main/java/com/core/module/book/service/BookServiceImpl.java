@@ -2,6 +2,7 @@ package com.core.module.book.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.elasticsearch.action.search.SearchRequest;
@@ -14,9 +15,8 @@ import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.stereotype.Service;
 
-import com.core.module.book.document.Book;
-import com.core.module.index.IndexVo;
-import com.core.module.index.dao.IndexDao;
+import com.core.module.index.dao.Indexing;
+import com.core.module.index.vo.IndexVo;
 import com.core.utils.BookCsvUpload;
 
 import lombok.RequiredArgsConstructor;
@@ -25,30 +25,38 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-	private final IndexDao indexDao;
+	private final Indexing<?> indexing;
+//	private final IndexCntService indexCntService;
     
 	/**
 	 * 인덱스 초기화 후 벌크 인덱싱
-	 * @throws IOException 
 	 */
 	@Override
-	public String Index(IndexVo indexVo) throws IOException  {
-		List<IndexQuery> indexQueries = BookCsvUpload.ReadCsvFile(indexVo.getExcelFile());
+	public String bookInitUpload(IndexVo indexVo) throws IOException {
+		List<Map<String, Object>> list = BookCsvUpload.ReadCsvFile(indexVo.getExcelFile());
+		
+//		if (list.size()>=50000000) {
+//			log.info("인덱스가 많습니다");
+//			return "인덱싱 할 데이터의 양이 많아 실패하였습니다.";
+//		}
+		indexing.InitIndexing(indexVo.getIndexName(), list);
 
-		indexDao.bulkIndex(indexQueries, indexVo.getIndexName());
+//		indexCntService.deleteIndexCnt(indexCntVo);
+		
+//		indexVo.setIndexCnt(list.size());
+//		indexCntService.createIndexCnt(indexCntVo);
 		
 		return "인덱싱 성공";
 	}
-	
+
 	@Override
-	public String deleteIndex(IndexVo indexVo) {
-		indexDao.deleteIndex(indexVo);
-		return "인덱싱 삭제";
+	public String bookUpload(IndexVo indexVo) {
+
+		return null;
 	}
 
 	@Override
 	public SearchResponse search(IndexVo indexVo) throws IOException {
-		return indexDao.search(indexVo);
+		return indexing.search(indexVo);
     }
-
 }

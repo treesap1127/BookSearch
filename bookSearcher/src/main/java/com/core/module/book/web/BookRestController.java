@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.core.module.book.service.BookService;
-import com.core.module.index.IndexVo;
+import com.core.module.index.dao.Indexing;
+import com.core.module.index.vo.IndexVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,34 +17,50 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/book")
 @RequiredArgsConstructor
 public class BookRestController {
-	private final BookService bookService;
-	
+	private final BookService<?> bookService;
+	private final Indexing<?> indexing;
+
 	/**
-	 * 인덱싱 작업
-	 * @param indexVo
+	 * 초기화 및 새로 인덱싱
+	 * @param indexCntVo
 	 * @return
 	 * @throws IOException
 	 */
-	@PostMapping("/index")
-	public ResponseEntity<?> Index(IndexVo indexVo) throws IOException{
+	@PostMapping("/initUpload")//index가 파일명이랑 
+	public ResponseEntity<?> initUpload(IndexVo indexVo) throws IOException{
 		indexVo.setIndexName("book");
-		
-		String message = bookService.Index(indexVo);
+		String message =bookService.bookInitUpload(indexVo); 
 		return ResponseEntity.ok(message);
 	}
-	
+
 	/**
-	 * 인덱싱 작업
-	 * @param indexVo
+	 * 인덱스 초기화
+	 * @param indexCntVo
 	 * @return
 	 * @throws IOException
 	 */
-	@PostMapping("/deleteIndex")
-	public ResponseEntity<?> deleteIndex(IndexVo indexVo) throws IOException{
+	@PostMapping("/initIndex")
+	public ResponseEntity<?> initIndex(IndexVo indexVo) throws IOException{
 		indexVo.setIndexName("book");
-		
-		String message = bookService.deleteIndex(indexVo);
+		String message =indexing.initIndex(indexVo.getIndexName()); 
 		return ResponseEntity.ok(message);
+	}
+
+	/**
+	 * 벌크 인덱싱
+	 * @param indexCntVo
+	 * @return
+	 * @throws IOException
+	 */
+	@PostMapping("/blukUpload")
+	public ResponseEntity<?> bulkUpload(IndexVo indexVo) throws IOException{
+		indexVo.setIndexName("book");
+//		String cntCheckText = indexCntService.findIndexRslt(indexVo);
+//		if(!"성공".equals(cntCheckText)) ResponseEntity.ok(cntCheckText);
+
+		String message =bookService.bookUpload(indexVo); 
+		return ResponseEntity.ok(message);
+
 	}
 	
 	/**

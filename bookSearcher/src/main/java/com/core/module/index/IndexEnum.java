@@ -1,13 +1,13 @@
-package com.core.module.search;
+package com.core.module.index;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Index {
+public enum IndexEnum {
 
-    BOOK("도서", "book", new String[]{"isbn", "title", "author", "publisher", "image", "description", "kdc","titleSub","authorSub"}, new String[]{"title", "content"});
+    BOOK("도서", "book", new String[]{"isbn", "title", "author", "publisher", "image", "description", "kdc","titleSub","authorSub"}, new String[]{"isbn","title", "author", "publisher", "content"});
 
     private final String description;
     private final String name;
@@ -19,7 +19,7 @@ public enum Index {
     }
 
     public static String findPath(String indexName, String type) {
-        for(Index index : Index.values()) {
+        for(IndexEnum index : IndexEnum.values()) {
             if(index.getName().equals(indexName)) {
                 return "/index/index_"+type+"_" + indexName + ".json";
             }
