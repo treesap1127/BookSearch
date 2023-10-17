@@ -17,11 +17,31 @@ spring:
     multipart:
       max-file-size: 1100MB
       max-request-size : 1100MB
+#  cors:
+    # CORS를 활성화합니다.
+#    enabled: true
+    # 허용할 Origin 리스트를 설정합니다. 여러 개를 지정할 수 있습니다.
+#    allowed-origins:
+#      - http://localhost:3000
+    # 허용할 HTTP method 리스트를 설정합니다.
+#    allowed-methods:
+#      - GET
+#      - POST
+#      - PUT
+#      - DELETE
+    # 허용할 HTTP header 리스트를 설정합니다.
+#    allowed-headers:
+#      - Authorization
+#      - Content-Type
+    # 브라우저가 자동으로 추가하는 헤더를 허용할지 여부를 설정합니다.
+#    allow-credentials: true
+#    CORS 1시간 캐시 사용
+#    max-age: 3600
 
 elasticsearch:
-  host: localhost
+  ip: localhost
   port: 9200
-  scheme: http
+  protocol: http
   
 logging:
   level:
@@ -33,5 +53,3 @@ mybatis:
   type-aliases-package: com.core.module
   config-location: classpath:mybatis/config/Mybatis_Config.xml
   mapper-locations: classpath:mybatis/mapper/**/*_MySQL.xml
-
-
