@@ -32,11 +32,12 @@ public class BookCsvUpload {
 	        
 	        try (InputStream inputStream = file.getInputStream();
 	        	     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-	        	     CSVParser csvParser = new CSVParser(inputStreamReader, CSVFormat.DEFAULT.withFirstRecordAsHeader())) {
+	        	     CSVParser csvParser = new CSVParser(inputStreamReader, CSVFormat.DEFAULT.withFirstRecordAsHeader())
+	        	    ) {
 	        	  	int cnt = 0;
 	        	    for (CSVRecord record : csvParser) {
-	        	    	if(String.valueOf(record.get("ISBN_THIRTEEN_NO")).toLowerCase().contains("x")) {
-	        	            Book book = new Book();
+	        	    	String isbnStr = record.get("ISBN_THIRTEEN_NO");
+	        	    	if (isbnStr != null && !isbnStr.toLowerCase().contains("x")) {
 	        	            Long isbn = Long.parseLong(record.get("ISBN_THIRTEEN_NO"));
 	        	            String title = record.get("TITLE_NM");
 	        	            String author = record.get("AUTHR_NM");

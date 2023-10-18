@@ -10,8 +10,6 @@ public interface BookService<T> {
 
 	SearchResponse search(IndexVo indexVo) throws IOException;
 
-	String bookInitUpload(IndexVo indexVo) throws IOException;
-
 	String bookUpload(IndexVo indexVo) throws IOException;
 
 

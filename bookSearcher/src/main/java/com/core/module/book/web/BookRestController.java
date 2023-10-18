@@ -26,43 +26,26 @@ public class BookRestController {
 	 * @return
 	 * @throws IOException
 	 */
-	@PostMapping("/initUpload")//index가 파일명이랑 
-	public ResponseEntity<?> initUpload(IndexVo indexVo) throws IOException{
+	@PostMapping("/bookUpload")//index가 파일명이랑 
+	public ResponseEntity<?> bookUpload(IndexVo indexVo) throws IOException{
 		indexVo.setIndexName("book");
-		String message =bookService.bookInitUpload(indexVo); 
-		return ResponseEntity.ok(message);
-	}
-
-	/**
-	 * 인덱스 초기화
-	 * @param indexCntVo
-	 * @return
-	 * @throws IOException
-	 */
-	@PostMapping("/initIndex")
-	public ResponseEntity<?> initIndex(IndexVo indexVo) throws IOException{
-		indexVo.setIndexName("book");
-		String message =indexing.initIndex(indexVo.getIndexName()); 
-		return ResponseEntity.ok(message);
-	}
-
-	/**
-	 * 벌크 인덱싱
-	 * @param indexCntVo
-	 * @return
-	 * @throws IOException
-	 */
-	@PostMapping("/blukUpload")
-	public ResponseEntity<?> bulkUpload(IndexVo indexVo) throws IOException{
-		indexVo.setIndexName("book");
-//		String cntCheckText = indexCntService.findIndexRslt(indexVo);
-//		if(!"성공".equals(cntCheckText)) ResponseEntity.ok(cntCheckText);
-
 		String message =bookService.bookUpload(indexVo); 
 		return ResponseEntity.ok(message);
-
 	}
-	
+
+	/**
+	 * 인덱스 삭제
+	 * @param indexCntVo
+	 * @return
+	 * @throws IOException
+	 */
+	@PostMapping("/deleteIndex")
+	public ResponseEntity<?> initIndex(IndexVo indexVo) throws IOException{
+		indexVo.setIndexName("book");
+		String message =indexing.deleteIndex(indexVo.getIndexName()); 
+		return ResponseEntity.ok(message);
+	}
+
 	/**
 	 * 검색
 	 * @param keyword

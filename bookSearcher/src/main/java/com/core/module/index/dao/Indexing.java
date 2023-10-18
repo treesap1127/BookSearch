@@ -11,12 +11,10 @@ import com.core.module.index.vo.IndexVo;
 
 public interface Indexing<T> {
 	
-	String InitIndexing(String indexName, List<Map<String, Object>> list);
-
-	String initIndex(String indexName);
-
 	String bulkIndexing(String indexName, List<Map<String, Object>> list);
 
 	SearchResponse search(IndexVo indexVo) throws IOException;
+
+	String deleteIndex(String indexName);
 
 }
