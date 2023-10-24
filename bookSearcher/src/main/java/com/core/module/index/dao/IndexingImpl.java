@@ -230,7 +230,7 @@ public class IndexingImpl<T> implements Indexing<T> {
 
         for (Map<String, Object> el : indexableData) {
             bulkRequest.add(new IndexRequest(indexName).source(el, XContentType.JSON));
-            // bulkRequestbulkRequest 1000 -> 5mb 씩 하는게 일반적
+            // bulkRequestbulkRequest  13000개씩 돌리면 될듯 sizeInBytes로 뜨긴함 확인 요망->? 5000000 -> 5mb 씩 하는게 일반적
         }
 
         try {
