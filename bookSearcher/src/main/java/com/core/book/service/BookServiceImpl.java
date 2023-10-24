@@ -11,6 +11,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -48,12 +49,11 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public SearchResponse search(String keyword) throws IOException {
-//	TODO: 2개 이상의 개념 검색 -> 개념들의 융합에 부합하는 검색 결과 도출 필요
 		SearchRequest searchRequest = new SearchRequest("book");
 		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
 		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
-				.should(QueryBuilders.matchQuery("title", keyword).boost(3))
+				.should(QueryBuilders.matchQuery("title", keyword).boost(3).operator(Operator.AND))
 				.should(QueryBuilders.matchQuery("subInfoText", keyword).boost(1))
 				.should(QueryBuilders.matchQuery("description", keyword).boost(2));
 
