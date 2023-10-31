@@ -8,7 +8,7 @@ import com.core.module.index.vo.IndexVo;
 
 public interface BookService<T> {
 
-	SearchResponse search(IndexVo indexVo) throws IOException;
+	SearchResponse search(String indexVo) throws IOException;
 
 	String bookUpload(IndexVo indexVo) throws IOException;
 

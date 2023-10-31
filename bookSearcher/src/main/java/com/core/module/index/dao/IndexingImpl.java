@@ -25,6 +25,7 @@ import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.StopWatch;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
@@ -100,27 +101,25 @@ public class IndexingImpl<T> implements Indexing<T> {
         log.info("인덱싱에 삭제에 성공하였습니다.");
 		return "인덱스 삭제에 성공하였습니다.";
 	}
-	
-	@Override
-	public SearchResponse search(IndexVo indexVo) throws IOException {
-		SearchRequest searchRequest = new SearchRequest(indexVo.getIndexName());
-		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
-		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
-				.should(QueryBuilders.matchQuery("title", indexVo.getKeyword()).boost(1))
-				.should(QueryBuilders.matchQuery("description", indexVo.getKeyword()).boost(2))
-				.should(QueryBuilders.matchQuery("image", indexVo.getKeyword()).boost(3))
-				.should(QueryBuilders.matchQuery("author", indexVo.getKeyword()).boost(4))
-				.should(QueryBuilders.matchQuery("publisher", indexVo.getKeyword()).boost(5))
-				.should(QueryBuilders.matchQuery("isbn", indexVo.getKeyword()).boost(6));
+    @Override
+    public SearchResponse search(String keyword) throws IOException {
+        SearchRequest searchRequest = new SearchRequest("book");
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
-		sourceBuilder.query(boolQueryBuilder);
-		sourceBuilder.size(10);
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
+                .should(QueryBuilders.matchQuery("title", keyword).boost(3).operator(Operator.AND))
+                .should(QueryBuilders.matchQuery("subInfoText", keyword).boost(1))
+                .should(QueryBuilders.matchQuery("description", keyword).boost(2));
 
-		searchRequest.source(sourceBuilder);
-		return elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
-	}
-    
+        sourceBuilder.query(boolQueryBuilder);
+        sourceBuilder.size(10);
+
+        searchRequest.source(sourceBuilder);
+
+        return elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
+    }
+
     /**
 	 * 엘라스틱서치 인덱스 존재여부 확인
 	 * @param indexName 인덱스 이름

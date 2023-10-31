@@ -13,8 +13,7 @@ public interface Indexing<T> {
 	
 	String bulkIndexing(String indexName, List<Map<String, Object>> list);
 
-	SearchResponse search(IndexVo indexVo) throws IOException;
-
 	String deleteIndex(String indexName);
 
+	SearchResponse search(String keyword) throws IOException;
 }
