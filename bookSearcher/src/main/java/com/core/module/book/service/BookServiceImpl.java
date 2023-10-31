@@ -1,15 +1,13 @@
 package com.core.module.book.service;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.elasticsearch.action.search.SearchRequest;
+import com.core.module.book.vo.Book;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.elasticsearch.search.profile.ProfileShardResult;
 import org.springframework.stereotype.Service;
 
 import com.core.module.index.dao.Indexing;
@@ -30,12 +28,17 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public String bookUpload(IndexVo indexVo) throws IOException {
 		List<Map<String, Object>> list = BookCsvUpload.ReadCsvFile(indexVo.getExcelFile());
-		
 		return indexing.bulkIndexing(indexVo.getIndexName(), list);
 	}
 
 	@Override
-	public SearchResponse search(String keyword) throws IOException {
-		return indexing.search(keyword);
+	public List<Book> search(String keyword) throws IOException {
+		SearchResponse searched = indexing.search(keyword);
+		List<Book> result = Arrays.stream(searched.getHits().getHits())
+				.map(v -> {
+					return new Book(v.getSourceAsMap());
+				})
+				.collect(Collectors.toList());
+		return result;
 	}
 }
