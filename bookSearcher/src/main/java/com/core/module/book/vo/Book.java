@@ -24,12 +24,8 @@ public class Book {
 
     private Double kdc;
 
-    private String titleSub;
-
-    private String authorSub;
-
     public Book(Map<String, Object> sourceAsMap) {
-        this.setIsbn((Long) sourceAsMap.get("isbn"));
+        this.setIsbn((Long) sourceAsMap.get("isbn13"));
         this.setTitle(trimField((String) sourceAsMap.get("title")));
         this.setAuthor(trimField((String) sourceAsMap.get("author")));
         this.setPublisher(trimField((String) sourceAsMap.get("publisher")));
@@ -39,8 +35,6 @@ public class Book {
         if (!kdc.isEmpty()) {
             this.setKdc(Double.parseDouble(kdc));
         }
-        this.setTitleSub(trimField((String) sourceAsMap.get("titleSub")));
-        this.setAuthorSub(trimField((String) sourceAsMap.get("authorSub")));
     }
 
     public static String trimField(String str) {
