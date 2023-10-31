@@ -9,6 +9,10 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Mapping;
 import org.springframework.data.elasticsearch.annotations.Setting;
 
+import java.util.Map;
+
+import static java.util.Objects.isNull;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,4 +35,22 @@ public class Book {
     private String description;
 
     private String kdc;
+
+    public Book(Map<String, Object> sourceAsMap) {
+        this.setIsbn13((Long) sourceAsMap.get("isbn13"));
+        this.setTitle(trimField((String) sourceAsMap.get("title")));
+        this.setAuthor(trimField((String) sourceAsMap.get("author")));
+        this.setPublisher(trimField((String) sourceAsMap.get("publisher")));
+        this.setImage(trimField((String) sourceAsMap.get("image")));
+        this.setDescription(trimField((String) sourceAsMap.get("description")));
+        this.setKdc(trimField((String) sourceAsMap.get("kdc")));
+    }
+
+    public static String trimField(String str) {
+        if (isNull(str)) {
+            return null;
+        }
+
+        return str.trim();
+    }
 }
