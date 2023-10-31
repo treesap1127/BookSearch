@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -34,40 +35,39 @@ public class BookCsvUpload {
 	        	     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 	        	     CSVParser csvParser = new CSVParser(inputStreamReader, CSVFormat.DEFAULT.withFirstRecordAsHeader())
 	        	    ) {
-	        	  	int cnt = 0;
-	        	    for (CSVRecord record : csvParser) {
-	        	    	String isbnStr = record.get("ISBN_THIRTEEN_NO");
-	        	    	if (isbnStr != null && !isbnStr.toLowerCase().contains("x")) {
-	        	            Long isbn = Long.parseLong(record.get("ISBN_THIRTEEN_NO"));
-	        	            String title = record.get("TITLE_NM");
-	        	            String author = record.get("AUTHR_NM");
-	        	            String publisher = record.get("PUBLISHER_NM");
-	        	            String image = record.get("IMAGE_URL");
-	        	            String description = record.get("BOOK_INTRCN_CN");
-	        	            String kdcStr = record.get("KDC_NM");
-	
-		        	        Map<String, Object> itemMap = new HashMap<String, Object>();
-		        	        
-		        	        itemMap.put("isbn",isbn);
-		        	        itemMap.put("title",title);
-		        	        itemMap.put("author",author);
-		        	        itemMap.put("publisher",publisher);
-		        	        itemMap.put("image",image);
-		        	        itemMap.put("description",description);
-		        	        if(!StringUtils.isBlank(kdcStr)) itemMap.put("kdc",kdcStr);
-	
-		        	        data.add(itemMap);
-		        	        cnt ++;
-		        	        if(cnt % 30000 == 0) {
-		        	        	log.debug(cnt+"cnt 갯수");
-		        	        }
-	        	    	
-        	        	}
-	        	    }
+	        		log.info("pasing Start");
+		        	data = csvParser.getRecords().stream()
+		                    .filter(record -> {
+		                        String isbnStr = record.get("ISBN_THIRTEEN_NO");
+		                        return isbnStr != null && !isbnStr.toLowerCase().contains("x");
+		                    })
+		                    .map(record -> {
+		                    	String isbnThirteenNo =record.get("ISBN_THIRTEEN_NO");
+		                    	if(record.get("ISBN_THIRTEEN_NO").length()> 13) isbnThirteenNo =isbnThirteenNo.substring(0,13);
+		                        Long isbn = Long.parseLong(isbnThirteenNo);
+		                        String title = record.get("TITLE_NM");
+		                        String author = record.get("AUTHR_NM");
+		                        String publisher = record.get("PUBLISHER_NM");
+		                        String image = record.get("IMAGE_URL");
+		                        String description = record.get("BOOK_INTRCN_CN");
+		                        String kdcStr = record.get("KDC_NM");
+		                        if(kdcStr.length()>13) kdcStr = kdcStr.substring(0, 13);
+
+		                        Map<String, Object> itemMap = new HashMap<>();
+		                        itemMap.put("isbn", isbn);
+		                        itemMap.put("title", title);
+		                        itemMap.put("author", author);
+		                        itemMap.put("publisher", publisher);
+		                        itemMap.put("image", image);
+		                        itemMap.put("description", description);
+		                        if (!StringUtils.isBlank(kdcStr)) itemMap.put("kdc", kdcStr.replaceAll("\\D", ""));
+		                        return itemMap;
+		                    })
+		                    .collect(Collectors.toList());
 	        	} catch (IOException e) {
 	        	    log.error("filePasing error ",e);
 	        	}
-	        log.info("pasing succese");
+	        log.info("pasing succese  DataCount = "+data.size());
 	        return data;
     }
 }

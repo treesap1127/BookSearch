@@ -21,7 +21,7 @@ public enum IndexEnum {
     public static String findPath(String indexName, String type) {
         for(IndexEnum index : IndexEnum.values()) {
             if(index.getName().equals(indexName)) {
-                return "/index/index_"+type+"_" + indexName + ".json";
+            	return "/srchSetting/index_"+type+"_" + indexName + ".json";
             }
         }
         throw new IllegalArgumentException("Index File Path Not Found... Wrong indexName : " + indexName);

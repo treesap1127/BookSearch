@@ -23,6 +23,7 @@ import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.StopWatch;
+import org.elasticsearch.common.bytes.BytesReference;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -53,11 +54,12 @@ public class IndexingImpl<T> implements Indexing<T> {
         RestHighLevelClient client = config.createConnection();
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-
+        
         if (list == null || list.isEmpty()) {
             log.error("Empty Data");
             return "데이터가 존재 하지 않습니다.";
         }
+        
         if(!isExistIndex(indexName)) {
             boolean acknowledged = createIndex(indexName, client);
 
@@ -67,12 +69,13 @@ public class IndexingImpl<T> implements Indexing<T> {
                 log.info(indexName + " fail to create index");
                 return "인덱스 생성을 실패하였습니다.";
             }
-
         }
         try{
+        	log.info("indexing start");
         	bulkIndexing(indexName, list, client);	
         } catch(Exception e) {
         	log.info("인덱싱에 실패하였습니다.");
+        	e.printStackTrace();
         	return "인덱싱에 실패하였습니다.";
         }
 
@@ -154,7 +157,6 @@ public class IndexingImpl<T> implements Indexing<T> {
         CreateIndexRequest request = new CreateIndexRequest(indexName);
 
 		request.source(doc, XContentType.JSON);
-
         try {
             CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
             return createIndexResponse.isAcknowledged();
@@ -173,7 +175,8 @@ public class IndexingImpl<T> implements Indexing<T> {
     private String getDocuments(String indexName, String type) {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         try {
-            InputStream in = this.getClass().getResourceAsStream(IndexEnum.findPath(indexName,type));
+        	String path = IndexEnum.findPath(indexName,type);
+            InputStream in = this.getClass().getResourceAsStream(path);
             byte[] buffer = new byte[1024];
             int length;
             if(nonNull(in)) {
@@ -227,24 +230,57 @@ public class IndexingImpl<T> implements Indexing<T> {
             RestHighLevelClient client
     ) {
         BulkRequest bulkRequest = new BulkRequest();
-
+        
+        int requestCnt = 0;
+        
+        int maxSize = 100 * 1024 * 1024; // 190MB
+        long currentSize = 0; // 현재 bulkRequest 크기 추적
+        
         for (Map<String, Object> el : indexableData) {
-            bulkRequest.add(new IndexRequest(indexName).source(el, XContentType.JSON));
-            // bulkRequestbulkRequest  13000개씩 돌리면 될듯 sizeInBytes로 뜨긴함 확인 요망->? 5000000 -> 5mb 씩 하는게 일반적
-        }
+//            bulkRequest.add(new IndexRequest(indexName).id("isbn").source(el, XContentType.JSON));
+        	IndexRequest indexReq = new IndexRequest(indexName).id("isbn").source(el, XContentType.JSON);
+            BytesReference source = indexReq.source();
+            currentSize += source.length(); // IndexRequest의 크기 누적
 
-        try {
-            BulkResponse bulkResponse = client.bulk(bulkRequest, RequestOptions.DEFAULT);
-            for (BulkItemResponse bulkItemResponse : bulkResponse) {
-                if (bulkItemResponse.isFailed()) {
-                    BulkItemResponse.Failure failure = bulkItemResponse.getFailure();
-                    System.out.println(failure.getIndex() + " - " + failure.getType() + " - " + failure.getId() + " / "
-                            + failure.getMessage());
+            bulkRequest.add(indexReq);
+            
+            requestCnt++;
+//            if(requestCnt%100000 == 0 ) {
+            if (currentSize > maxSize) {
+            	try {
+            		log.info("현재 인덱싱 완료 갯수"+requestCnt);
+                    BulkResponse bulkResponse = client.bulk(bulkRequest, RequestOptions.DEFAULT);
+                    for (BulkItemResponse bulkItemResponse : bulkResponse) {
+                        if (bulkItemResponse.isFailed()) {
+                            BulkItemResponse.Failure failure = bulkItemResponse.getFailure();
+                            System.out.println(failure.getIndex() + " - " + failure.getType() + " - " + failure.getId() + " / "
+                                    + failure.getMessage());
+                        }
+                    }
+                } catch (IOException e) {
+                	log.info("인덱싱에 실패하였습니다."+e.getMessage());
                 }
+            	//초기화
+            	bulkRequest = new BulkRequest();
+                currentSize = 0;
             }
-        } catch (IOException e) {
-        	log.info("인덱싱에 실패하였습니다."+e.getMessage());
         }
-    }
+//        if (requestCnt%100000 != 0) {
+        if (!bulkRequest.requests().isEmpty()) {
+        	log.info("현재 인덱싱 완료 갯수"+requestCnt);
+        	try {
+                BulkResponse bulkResponse = client.bulk(bulkRequest, RequestOptions.DEFAULT);
+                for (BulkItemResponse bulkItemResponse : bulkResponse) {
+                    if (bulkItemResponse.isFailed()) {
+                        BulkItemResponse.Failure failure = bulkItemResponse.getFailure();
+                        System.out.println(failure.getIndex() + " - " + failure.getType() + " - " + failure.getId() + " / "
+                                + failure.getMessage());
+                    }
+                }
+            } catch (IOException e) {
+            	log.info("인덱싱에 실패하였습니다."+e.getMessage());
+            }
+        }
+	}
 }
 
