@@ -39,11 +39,10 @@ public class BookCsvUpload {
 		        	data = csvParser.getRecords().stream()
 		                    .filter(record -> {
 		                        String isbnStr = record.get("ISBN_THIRTEEN_NO");
-		                        return isbnStr != null && !isbnStr.toLowerCase().contains("x");
+		                        return isbnStr != null && !isbnStr.toLowerCase().contains("x") && !(isbnStr.length()> 13);
 		                    })
 		                    .map(record -> {
 		                    	String isbnThirteenNo =record.get("ISBN_THIRTEEN_NO");
-		                    	if(record.get("ISBN_THIRTEEN_NO").length()> 13) isbnThirteenNo =isbnThirteenNo.substring(0,13);
 		                        Long isbn = Long.parseLong(isbnThirteenNo);
 		                        String title = record.get("TITLE_NM");
 		                        String author = record.get("AUTHR_NM");
