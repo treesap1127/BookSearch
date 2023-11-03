@@ -1,4 +1,4 @@
-package com.core.module.book.service;
+package com.core.book.service;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.core.module.book.vo.Book;
+import com.core.book.model.Book;
 import org.elasticsearch.action.search.SearchResponse;
 import org.springframework.stereotype.Service;
 
-import com.core.module.index.dao.Indexing;
-import com.core.module.index.vo.IndexVo;
-import com.core.utils.BookCsvUpload;
+import com.core.elasitcSearch.Indexing;
+import com.core.elasitcSearch.model.Index;
+import com.core.utils.BookCsvUploader;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -26,9 +26,9 @@ public class BookServiceImpl implements BookService {
 	 * 벌크 인덱싱
 	 */
 	@Override
-	public String bookUpload(IndexVo indexVo) throws IOException {
-		List<Map<String, Object>> list = BookCsvUpload.ReadCsvFile(indexVo.getExcelFile());
-		return indexing.bulkIndexing(indexVo.getIndexName(), list);
+	public String upload(Index index) throws IOException {
+		List<Map<String, Object>> list = BookCsvUploader.ReadCsvFile(index.getExcelFile());
+		return indexing.bulkIndexing(index.getIndexName(), list);
 	}
 
 	@Override

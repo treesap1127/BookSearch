@@ -11,18 +11,15 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.core.module.book.vo.Book;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RequiredArgsConstructor
-public class BookCsvUpload {
+public class BookCsvUploader {
 		public static List<Map<String, Object>> ReadCsvFile(MultipartFile file) throws IOException {
 
 			List<Map<String, Object>> data = new ArrayList<>();

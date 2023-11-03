@@ -1,4 +1,4 @@
-package com.core.module.index;
+package com.core.elasitcSearch;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

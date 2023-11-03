@@ -1,4 +1,4 @@
-package com.core.module.index.dao;
+package com.core.elasitcSearch;
 
 import static java.util.Objects.nonNull;
 
@@ -31,9 +31,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
 
-import com.core.config.ElasticSearchConfig;
-import com.core.module.index.IndexEnum;
-import com.core.module.index.vo.IndexVo;
+import com.core.elasitcSearch.config.ElasticSearchConfig;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -44,8 +42,6 @@ import lombok.extern.log4j.Log4j2;
 public class IndexingImpl<T> implements Indexing<T> {
 	private final RestHighLevelClient elasticsearchClient;
     private final ElasticSearchConfig config;
-//	private final IndexCntService indexCntService;
-
 
 	/**
      * 인덱싱 확인 후 데이터 삽입
@@ -264,7 +260,6 @@ public class IndexingImpl<T> implements Indexing<T> {
                 currentSize = 0;
             }
         }
-//        if (requestCnt%100000 != 0) {
         if (!bulkRequest.requests().isEmpty()) {
         	log.info("현재 인덱싱 완료 갯수"+requestCnt);
         	try {

@@ -11,8 +11,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/bookSearcher?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: root
-    password: st0new@ll
+    username:
+    password:
   servlet:
     multipart:
       max-file-size: 1100MB
@@ -51,7 +51,3 @@ logging:
       springframework:
         data:
           elasticsearch: DEBUG
-mybatis:
-  type-aliases-package: com.core.module
-  config-location: classpath:mybatis/config/Mybatis_Config.xml
-  mapper-locations: classpath:mybatis/mapper/**/*_MySQL.xml

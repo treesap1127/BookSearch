@@ -1,4 +1,4 @@
-package com.core.module.book.vo;
+package com.core.book.model;
 
 
 import lombok.Data;

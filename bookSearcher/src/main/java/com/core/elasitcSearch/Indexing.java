@@ -1,12 +1,10 @@
-package com.core.module.index.dao;
+package com.core.elasitcSearch;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.action.search.SearchResponse;
-
-import com.core.module.index.vo.IndexVo;
 
 
 public interface Indexing<T> {

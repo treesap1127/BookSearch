@@ -1,13 +1,11 @@
-package com.core.module.index.vo;
+package com.core.elasitcSearch.model;
 
-import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
 @Data
-@Alias("IndexVo")
-public class IndexVo {
+public class Index {
 	private String indexName;
 	private String fileName;
 	private String keyword;
