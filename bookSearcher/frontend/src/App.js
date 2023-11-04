@@ -1,5 +1,5 @@
 import React from 'react';
-import MyComponent from './components/MyComponent.js';
+import MyComponent from './admin/components/MyComponent.js';
 
 const App = () => {
   return (
