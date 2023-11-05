@@ -40,7 +40,7 @@ public class BookCsvUploader {
 		                    })
 		                    .map(record -> {
 		                    	String isbnThirteenNo =record.get("ISBN_THIRTEEN_NO");
-		                        Long isbn = Long.parseLong(isbnThirteenNo);
+		                        String isbn = String.valueOf(isbnThirteenNo);
 		                        String title = record.get("TITLE_NM");
 		                        String author = record.get("AUTHR_NM");
 		                        String publisher = record.get("PUBLISHER_NM");

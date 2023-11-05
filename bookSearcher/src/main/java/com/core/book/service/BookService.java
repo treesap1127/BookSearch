@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.List;
 
 import com.core.book.model.Book;
-import com.core.elasitcSearch.model.Index;
+import com.core.elasitcSearch.model.IndexVo;
 
 public interface BookService<T> {
 
 	List<Book> search(String indexVo) throws IOException;
 
-	String upload(Index index) throws IOException;
+	String bookUpload(IndexVo indexVo) throws IOException;
 
 
 }

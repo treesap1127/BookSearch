@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.core.book.service.BookService;
 import com.core.elasitcSearch.Indexing;
-import com.core.elasitcSearch.model.Index;
+import com.core.elasitcSearch.model.IndexVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,20 +20,38 @@ public class BookRestController {
 	private final BookService<?> bookService;
 	private final Indexing<?> indexing;
 
-	@PostMapping("/upload")
-	public ResponseEntity<?> upload(Index index) throws IOException{
-		index.setIndexName("book");
-		String message =bookService.upload(index);
+	/**
+	 * 초기화 및 새로 인덱싱
+	 * @param indexCntVo
+	 * @return
+	 * @throws IOException
+	 */
+	@PostMapping("/bookUpload")//index가 파일명이랑 
+	public ResponseEntity<?> bookUpload(IndexVo indexVo) throws IOException{
+		indexVo.setIndexName("book");
+		String message =bookService.bookUpload(indexVo); 
 		return ResponseEntity.ok(message);
 	}
 
+	/**
+	 * 인덱스 삭제
+	 * @param indexCntVo
+	 * @return
+	 * @throws IOException
+	 */
 	@PostMapping("/deleteIndex")
-	public ResponseEntity<?> initIndex(Index index) throws IOException{
-		index.setIndexName("book");
-		String message =indexing.deleteIndex(index.getIndexName());
+	public ResponseEntity<?> initIndex(IndexVo indexVo) throws IOException{
+		indexVo.setIndexName("book");
+		String message =indexing.deleteIndex(indexVo.getIndexName()); 
 		return ResponseEntity.ok(message);
 	}
 
+	/**
+	 * 검색
+	 * @param keyword
+	 * @return
+	 * @throws IOException
+	 */
 	@PostMapping("/search")
 	public ResponseEntity<?> search(String keyword) throws IOException {
 		return ResponseEntity.ok(bookService.search(keyword));

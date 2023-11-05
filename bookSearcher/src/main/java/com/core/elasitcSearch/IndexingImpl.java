@@ -42,6 +42,8 @@ import lombok.extern.log4j.Log4j2;
 public class IndexingImpl<T> implements Indexing<T> {
 	private final RestHighLevelClient elasticsearchClient;
     private final ElasticSearchConfig config;
+//	private final IndexCntService indexCntService;
+
 
 	/**
      * 인덱싱 확인 후 데이터 삽입
@@ -233,14 +235,16 @@ public class IndexingImpl<T> implements Indexing<T> {
         
         for (Map<String, Object> el : indexableData) {
 //            bulkRequest.add(new IndexRequest(indexName).id("isbn").source(el, XContentType.JSON));
-        	IndexRequest indexReq = new IndexRequest(indexName).id("isbn").source(el, XContentType.JSON);
+        	IndexRequest indexReq = new IndexRequest(indexName)
+        			.id((String) el.get("isbn"))
+        			.source(el, XContentType.JSON)
+        			.create(true);//생성 설정
             BytesReference source = indexReq.source();
             currentSize += source.length(); // IndexRequest의 크기 누적
 
             bulkRequest.add(indexReq);
             
             requestCnt++;
-//            if(requestCnt%100000 == 0 ) {
             if (currentSize > maxSize) {
             	try {
             		log.info("현재 인덱싱 완료 갯수"+requestCnt);
@@ -277,4 +281,3 @@ public class IndexingImpl<T> implements Indexing<T> {
         }
 	}
 }
-
