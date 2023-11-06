@@ -3,6 +3,7 @@ package com.core.book.model;
 
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public class Book {
         this.setImage(trimField(String.valueOf(sourceAsMap.get("image"))));
         this.setDescription(trimField(String.valueOf(sourceAsMap.get("description"))));
         String kdc = trimField(String.valueOf(sourceAsMap.get("kdc")));
-        if (kdc != null && StringUtils.isNotBlank(kdc)) {
+        if (kdc != null && StringUtils.isNotBlank(kdc) && NumberUtils.isNumber(kdc)) {
             this.setKdc(Double.parseDouble(kdc));
         }
     }
