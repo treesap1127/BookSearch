@@ -44,7 +44,7 @@ elasticsearch:
   protocol: http
   rest:
     connection-timeout: 3600000
-  
+
 logging:
   level:
     org:

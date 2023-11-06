@@ -22,7 +22,7 @@ public class BookRestController {
 
 	/**
 	 * 초기화 및 새로 인덱싱
-	 * @param indexCntVo
+	 * @param indexVo
 	 * @return
 	 * @throws IOException
 	 */
@@ -35,7 +35,7 @@ public class BookRestController {
 
 	/**
 	 * 인덱스 삭제
-	 * @param indexCntVo
+	 * @param indexVo
 	 * @return
 	 * @throws IOException
 	 */
