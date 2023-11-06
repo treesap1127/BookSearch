@@ -109,15 +109,13 @@ public class IndexingImpl<T> implements Indexing<T> {
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("title", keyword))
-                .should(QueryBuilders.matchQuery("subInfoText", keyword))
-                .should(QueryBuilders.matchQuery("description", keyword))
                 .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchQuery("subInfoText", keyword).operator(Operator.AND))
+                .should(QueryBuilders.matchQuery("subInfoText", keyword))
                 .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchPhraseQuery("title", keyword).boost(2))
-                .should(QueryBuilders.matchPhraseQuery("subInfoText", keyword).boost(1))
-                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(3));
+                .should(QueryBuilders.matchPhraseQuery("title", keyword))
+                .should(QueryBuilders.matchPhraseQuery("subInfoText", keyword))
+                .should(QueryBuilders.matchPhraseQuery("description", keyword))
+                .must(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND).boost(2));
 
         sourceBuilder.query(boolQueryBuilder);
         sourceBuilder.size(10);
