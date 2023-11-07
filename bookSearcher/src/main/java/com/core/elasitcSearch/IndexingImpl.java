@@ -105,6 +105,34 @@ public class IndexingImpl<T> implements Indexing<T> {
 
     @Override
     public SearchResponse search(String keyword) throws IOException {
+        SearchResponse result = elasticsearchClient.search(titleDescQuery(keyword), RequestOptions.DEFAULT);
+
+        if (result.getHits().getHits().length <= 0) {
+            result = elasticsearchClient.search(wholeColumnQuery(keyword), RequestOptions.DEFAULT);
+        }
+
+        return result;
+    }
+
+    private static SearchRequest titleDescQuery(String keyword) {
+        SearchRequest searchRequest = new SearchRequest("book");
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
+                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
+                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
+                .should(QueryBuilders.matchPhraseQuery("title", keyword))
+                .should(QueryBuilders.matchPhraseQuery("description", keyword))
+                .must(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND));
+
+        sourceBuilder.query(boolQueryBuilder);
+        sourceBuilder.size(10);
+
+        searchRequest.source(sourceBuilder);
+        return searchRequest;
+    }
+
+    private static SearchRequest wholeColumnQuery(String keyword) {
         SearchRequest searchRequest = new SearchRequest("book");
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
@@ -114,15 +142,13 @@ public class IndexingImpl<T> implements Indexing<T> {
                 .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
                 .should(QueryBuilders.matchPhraseQuery("title", keyword))
                 .should(QueryBuilders.matchPhraseQuery("subInfoText", keyword))
-                .should(QueryBuilders.matchPhraseQuery("description", keyword))
-                .must(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND).boost(2));
+                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(3));
 
         sourceBuilder.query(boolQueryBuilder);
         sourceBuilder.size(10);
 
         searchRequest.source(sourceBuilder);
-
-        return elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
+        return searchRequest;
     }
 
     /**
