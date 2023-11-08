@@ -40,12 +40,12 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 @Service
 public class IndexingImpl<T> implements Indexing<T> {
-	private final RestHighLevelClient elasticsearchClient;
+    private final RestHighLevelClient elasticsearchClient;
     private final ElasticSearchConfig config;
 //	private final IndexCntService indexCntService;
 
 
-	/**
+    /**
      * 인덱싱 확인 후 데이터 삽입
      */
     @Override
@@ -53,13 +53,13 @@ public class IndexingImpl<T> implements Indexing<T> {
         RestHighLevelClient client = config.createConnection();
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        
+
         if (list == null || list.isEmpty()) {
             log.error("Empty Data");
             return "데이터가 존재 하지 않습니다.";
         }
-        
-        if(!isExistIndex(indexName)) {
+
+        if (!isExistIndex(indexName)) {
             boolean acknowledged = createIndex(indexName, client);
 
             if (acknowledged) {
@@ -69,61 +69,60 @@ public class IndexingImpl<T> implements Indexing<T> {
                 return "인덱스 생성을 실패하였습니다.";
             }
         }
-        try{
-        	log.info("indexing start");
-        	bulkIndexing(indexName, list, client);	
-        } catch(Exception e) {
-        	log.info("인덱싱에 실패하였습니다.");
-        	e.printStackTrace();
-        	return "인덱싱에 실패하였습니다.";
+        try {
+            log.info("indexing start");
+            bulkIndexing(indexName, list, client);
+        } catch (Exception e) {
+            log.info("인덱싱에 실패하였습니다.");
+            e.printStackTrace();
+            return "인덱싱에 실패하였습니다.";
         }
 
         config.closeConnection(client);
         stopWatch.stop();
         log.info("인덱싱에 완료했습니다.");
-		return "인덱싱을 완료했습니다.";
+        return "인덱싱을 완료했습니다.";
     }
 
     /**
      * 인덱스 삭제
      */
-	@Override
-	public String deleteIndex(String indexName) {
+    @Override
+    public String deleteIndex(String indexName) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
-        if(isExistIndex(indexName)) {
-        	if(!deleteIndexConnetion(indexName)) {
+        if (isExistIndex(indexName)) {
+            if (!deleteIndexConnetion(indexName)) {
                 log.info(indexName + "fail to delete index");
                 return "인덱스 삭제에 실패하였습니다.";
             }
         }
         stopWatch.stop();
         log.info("인덱싱에 삭제에 성공하였습니다.");
-		return "인덱스 삭제에 성공하였습니다.";
-	}
+        return "인덱스 삭제에 성공하였습니다.";
+    }
 
     @Override
     public SearchResponse search(String keyword) throws IOException {
-        SearchResponse result = elasticsearchClient.search(titleDescQuery(keyword), RequestOptions.DEFAULT);
-
-        if (result.getHits().getHits().length <= 0) {
-            result = elasticsearchClient.search(wholeColumnQuery(keyword), RequestOptions.DEFAULT);
+        SearchResponse result = invokeSearch(descMustQuery(keyword));
+        if (result.getHits().getHits().length == 0) {
+            result = invokeSearch(titleDescShouldQuery(keyword));
+        }
+        if (result.getHits().getHits().length == 0) {
+            result = invokeSearch(allQuery(keyword));
         }
 
         return result;
     }
 
-    private static SearchRequest titleDescQuery(String keyword) {
+    private SearchResponse invokeSearch(BoolQueryBuilder boolQueryBuilder) throws IOException {
+        return elasticsearchClient.search(createSearchReq(boolQueryBuilder), RequestOptions.DEFAULT);
+    }
+
+    private static SearchRequest createSearchReq(BoolQueryBuilder boolQueryBuilder) {
         SearchRequest searchRequest = new SearchRequest("book");
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchPhraseQuery("title", keyword))
-                .should(QueryBuilders.matchPhraseQuery("description", keyword))
-                .must(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND));
 
         sourceBuilder.query(boolQueryBuilder);
         sourceBuilder.size(10);
@@ -132,58 +131,70 @@ public class IndexingImpl<T> implements Indexing<T> {
         return searchRequest;
     }
 
-    private static SearchRequest wholeColumnQuery(String keyword) {
-        SearchRequest searchRequest = new SearchRequest("book");
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+    private static BoolQueryBuilder descMustQuery(String keyword) {
+        return QueryBuilders.boolQuery()
+//                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
+//                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
+//                .should(QueryBuilders.matchPhraseQuery("title", keyword))
+//                .should(QueryBuilders.matchPhraseQuery("description", keyword))
+                .must(QueryBuilders.matchPhraseQuery("description", keyword));
+    }
 
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
+    private static BoolQueryBuilder titleDescShouldQuery(String keyword) {
+        return QueryBuilders.boolQuery()
+                .should(QueryBuilders.matchQuery("title", keyword))
+                .should(QueryBuilders.matchQuery("description", keyword))
+                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND).boost(2))
+                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND).boost(3))
+                .should(QueryBuilders.matchPhraseQuery("title", keyword).boost(4))
+                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(5));
+    }
+
+    private static BoolQueryBuilder allQuery(String keyword) {
+        return QueryBuilders.boolQuery()
                 .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
                 .should(QueryBuilders.matchQuery("subInfoText", keyword))
                 .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
                 .should(QueryBuilders.matchPhraseQuery("title", keyword))
                 .should(QueryBuilders.matchPhraseQuery("subInfoText", keyword))
-                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(3));
-
-        sourceBuilder.query(boolQueryBuilder);
-        sourceBuilder.size(10);
-
-        searchRequest.source(sourceBuilder);
-        return searchRequest;
+                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(2));
     }
 
     /**
-	 * 엘라스틱서치 인덱스 존재여부 확인
-	 * @param indexName 인덱스 이름
-	 * @return 인덱스 존재 여부
-	 */
-	private boolean isExistIndex(String indexName) {
-	    RestHighLevelClient client = null;
-	    boolean acknowledged = false;
-	    try {
-	        client = config.createConnection();
-	        GetIndexRequest request = new GetIndexRequest(indexName);
-	        acknowledged = client.indices().exists(request, RequestOptions.DEFAULT);
-	    } catch (Exception e) {
-	        log.error(e.getMessage());
-	    } finally {
-	        config.closeConnection(client);
-	    }
+     * 엘라스틱서치 인덱스 존재여부 확인
+     *
+     * @param indexName 인덱스 이름
+     * @return 인덱스 존재 여부
+     */
+    private boolean isExistIndex(String indexName) {
+        RestHighLevelClient client = null;
+        boolean acknowledged = false;
+        try {
+            client = config.createConnection();
+            GetIndexRequest request = new GetIndexRequest(indexName);
+            acknowledged = client.indices().exists(request, RequestOptions.DEFAULT);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        } finally {
+            config.closeConnection(client);
+        }
 
-	    return acknowledged;
-	}
+        return acknowledged;
+    }
 
     /**
      * 인덱스 생성
+     *
      * @param indexName
      * @param client
      * @return
      */
-	private boolean createIndex(String indexName, RestHighLevelClient client) {
-		String doc = getDocuments(indexName,"all");
-		
+    private boolean createIndex(String indexName, RestHighLevelClient client) {
+        String doc = getDocuments(indexName, "all");
+
         CreateIndexRequest request = new CreateIndexRequest(indexName);
 
-		request.source(doc, XContentType.JSON);
+        request.source(doc, XContentType.JSON);
         try {
             CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
             return createIndexResponse.isAcknowledged();
@@ -192,26 +203,27 @@ public class IndexingImpl<T> implements Indexing<T> {
             return false;
         }
     }
-	
-	/**
-	 * 인덱스 이름으로 도큐먼트 조회
-	 * @param indexName
-	 * @param type 
-	 * @return
-	 */
+
+    /**
+     * 인덱스 이름으로 도큐먼트 조회
+     *
+     * @param indexName
+     * @param type
+     * @return
+     */
     private String getDocuments(String indexName, String type) {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         try {
-        	String path = IndexEnum.findPath(indexName,type);
+            String path = IndexEnum.findPath(indexName, type);
             InputStream in = this.getClass().getResourceAsStream(path);
             byte[] buffer = new byte[1024];
             int length;
-            if(nonNull(in)) {
+            if (nonNull(in)) {
                 while ((length = in.read(buffer)) != -1) {
                     result.write(buffer, 0, length);
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error("Not found documents by indexName : " + indexName);
         }
 
@@ -219,65 +231,66 @@ public class IndexingImpl<T> implements Indexing<T> {
     }
 
 
-		/**
-        * 인덱스 삭제 연결
-        */
-       public boolean deleteIndexConnetion(String indexName) {
-           RestHighLevelClient client = null;
-           boolean acknowledged = false;
-           try {
-               client = config.createConnection();
-               DeleteIndexRequest request = new DeleteIndexRequest(indexName);
-               AcknowledgedResponse response = client.indices().delete(request, RequestOptions.DEFAULT);
-               acknowledged = response.isAcknowledged();
-           } catch (ElasticsearchException | IOException e) {
-               log.error(e.toString());
-           } finally {
-               config.closeConnection(client);
-           }
+    /**
+     * 인덱스 삭제 연결
+     */
+    public boolean deleteIndexConnetion(String indexName) {
+        RestHighLevelClient client = null;
+        boolean acknowledged = false;
+        try {
+            client = config.createConnection();
+            DeleteIndexRequest request = new DeleteIndexRequest(indexName);
+            AcknowledgedResponse response = client.indices().delete(request, RequestOptions.DEFAULT);
+            acknowledged = response.isAcknowledged();
+        } catch (ElasticsearchException | IOException e) {
+            log.error(e.toString());
+        } finally {
+            config.closeConnection(client);
+        }
 
-           if(acknowledged) {
-               log.info(indexName + "success to delete index");
-           } else {
-               log.info(indexName + "fail to delete index");
-           }
+        if (acknowledged) {
+            log.info(indexName + "success to delete index");
+        } else {
+            log.info(indexName + "fail to delete index");
+        }
 
-           return acknowledged;
-       }
+        return acknowledged;
+    }
 
     /**
      * 인덱싱 데이터 삽입
+     *
      * @param indexName
      * @param indexableData
      * @param client
      */
-	private void bulkIndexing(
+    private void bulkIndexing(
             String indexName,
             List<Map<String, Object>> indexableData,
             RestHighLevelClient client
     ) {
         BulkRequest bulkRequest = new BulkRequest();
-        
+
         int requestCnt = 0;
-        
+
         int maxSize = 100 * 1024 * 1024; // 190MB
         long currentSize = 0; // 현재 bulkRequest 크기 추적
-        
+
         for (Map<String, Object> el : indexableData) {
 //            bulkRequest.add(new IndexRequest(indexName).id("isbn").source(el, XContentType.JSON));
-        	IndexRequest indexReq = new IndexRequest(indexName)
-        			.id((String) el.get("isbn"))
-        			.source(el, XContentType.JSON)
-        			.create(true);//생성 설정
+            IndexRequest indexReq = new IndexRequest(indexName)
+                    .id((String) el.get("isbn"))
+                    .source(el, XContentType.JSON)
+                    .create(true);//생성 설정
             BytesReference source = indexReq.source();
             currentSize += source.length(); // IndexRequest의 크기 누적
 
             bulkRequest.add(indexReq);
-            
+
             requestCnt++;
             if (currentSize > maxSize) {
-            	try {
-            		log.info("현재 인덱싱 완료 갯수"+requestCnt);
+                try {
+                    log.info("현재 인덱싱 완료 갯수" + requestCnt);
                     BulkResponse bulkResponse = client.bulk(bulkRequest, RequestOptions.DEFAULT);
                     for (BulkItemResponse bulkItemResponse : bulkResponse) {
                         if (bulkItemResponse.isFailed()) {
@@ -287,16 +300,16 @@ public class IndexingImpl<T> implements Indexing<T> {
                         }
                     }
                 } catch (IOException e) {
-                	log.info("인덱싱에 실패하였습니다."+e.getMessage());
+                    log.info("인덱싱에 실패하였습니다." + e.getMessage());
                 }
-            	//초기화
-            	bulkRequest = new BulkRequest();
+                //초기화
+                bulkRequest = new BulkRequest();
                 currentSize = 0;
             }
         }
         if (!bulkRequest.requests().isEmpty()) {
-        	log.info("현재 인덱싱 완료 갯수"+requestCnt);
-        	try {
+            log.info("현재 인덱싱 완료 갯수" + requestCnt);
+            try {
                 BulkResponse bulkResponse = client.bulk(bulkRequest, RequestOptions.DEFAULT);
                 for (BulkItemResponse bulkItemResponse : bulkResponse) {
                     if (bulkItemResponse.isFailed()) {
@@ -306,8 +319,8 @@ public class IndexingImpl<T> implements Indexing<T> {
                     }
                 }
             } catch (IOException e) {
-            	log.info("인덱싱에 실패하였습니다."+e.getMessage());
+                log.info("인덱싱에 실패하였습니다." + e.getMessage());
             }
         }
-	}
+    }
 }
