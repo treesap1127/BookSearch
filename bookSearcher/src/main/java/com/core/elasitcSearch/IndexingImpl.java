@@ -133,21 +133,17 @@ public class IndexingImpl<T> implements Indexing<T> {
 
     private static BoolQueryBuilder descMustQuery(String keyword) {
         return QueryBuilders.boolQuery()
-//                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
-//                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
-//                .should(QueryBuilders.matchPhraseQuery("title", keyword))
-//                .should(QueryBuilders.matchPhraseQuery("description", keyword))
                 .must(QueryBuilders.matchPhraseQuery("description", keyword));
     }
 
     private static BoolQueryBuilder titleDescShouldQuery(String keyword) {
         return QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("title", keyword))
-                .should(QueryBuilders.matchQuery("description", keyword))
-                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND).boost(2))
-                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND).boost(3))
-                .should(QueryBuilders.matchPhraseQuery("title", keyword).boost(4))
-                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(5));
+//                .should(QueryBuilders.matchQuery("title", keyword))
+//                .should(QueryBuilders.matchQuery("description", keyword))
+                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
+                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
+                .should(QueryBuilders.matchPhraseQuery("title", keyword))
+                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(6));
     }
 
     private static BoolQueryBuilder allQuery(String keyword) {
