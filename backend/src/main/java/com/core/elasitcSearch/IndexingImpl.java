@@ -121,6 +121,35 @@ public class IndexingImpl<T> implements Indexing<T> {
         return resultMap;
     }
 
+    private static BoolQueryBuilder descMustQuery(String keyword) {
+        return QueryBuilders.boolQuery()
+                .must(QueryBuilders.matchPhraseQuery("description", keyword));
+//                .must(QueryBuilders.existsQuery("description"));
+    }
+
+    private static BoolQueryBuilder titleDescShouldQuery(String keyword) {
+        return QueryBuilders.boolQuery()
+                .should(QueryBuilders.matchQuery("title", keyword))
+                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
+                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
+                .should(QueryBuilders.matchPhraseQuery("title", keyword))
+                .should(QueryBuilders.matchPhraseQuery("description", keyword));
+    }
+
+//    private static BoolQueryBuilder allQuery(String keyword) {
+//        return QueryBuilders.boolQuery()
+//                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
+//                .should(QueryBuilders.matchQuery("subInfoText", keyword))
+//                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
+//                .should(QueryBuilders.matchPhraseQuery("title", keyword))
+//                .should(QueryBuilders.matchPhraseQuery("subInfoText", keyword))
+//                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(2))
+//                .must(QueryBuilders.existsQuery("description"));
+//    }
+    private SearchResponse invokeSearch(BoolQueryBuilder boolQueryBuilder, int size) throws IOException {
+        return elasticsearchClient.search(createSearchReq(boolQueryBuilder, size), RequestOptions.DEFAULT);
+    }
+
     private static SearchRequest createSearchReq(BoolQueryBuilder boolQueryBuilder, int size) {
         SearchRequest searchRequest = new SearchRequest("book");
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
@@ -130,33 +159,6 @@ public class IndexingImpl<T> implements Indexing<T> {
 
         searchRequest.source(sourceBuilder);
         return searchRequest;
-    }
-
-    private SearchResponse invokeSearch(BoolQueryBuilder boolQueryBuilder, int size) throws IOException {
-        return elasticsearchClient.search(createSearchReq(boolQueryBuilder, size), RequestOptions.DEFAULT);
-    }
-
-    private static BoolQueryBuilder descMustQuery(String keyword) {
-        return QueryBuilders.boolQuery()
-                .must(QueryBuilders.matchPhraseQuery("description", keyword));
-    }
-
-    private static BoolQueryBuilder titleDescShouldQuery(String keyword) {
-        return QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchPhraseQuery("title", keyword))
-                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(6));
-    }
-
-    private static BoolQueryBuilder allQuery(String keyword) {
-        return QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchQuery("subInfoText", keyword))
-                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchPhraseQuery("title", keyword))
-                .should(QueryBuilders.matchPhraseQuery("subInfoText", keyword))
-                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(2));
     }
 
     /**

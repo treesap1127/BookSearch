@@ -108,10 +108,12 @@ public class BookServiceImpl implements BookService {
             SearchHit[] hits = searched.get(k).getHits().getHits();
             Arrays.stream(hits)
                     .forEach(v -> {
-                        Object title = v.getSourceAsMap().get("title");
-                        if (titles.get(String.valueOf(title)) == null) {
+//                        제목을 기준으로 중복된 검색 결과 제외
+                        String title = String.valueOf(v.getSourceAsMap().get("title"));
+                        String titleTrimmed = title.replace("\s", "");
+                        if (titles.get(titleTrimmed) == null) {
                             result.add(new Book(v));
-                            titles.put(String.valueOf(title), title);
+                            titles.put(titleTrimmed, titleTrimmed);
                         }
                     });
         }
