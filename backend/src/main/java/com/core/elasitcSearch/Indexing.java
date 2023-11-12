@@ -13,5 +13,5 @@ public interface Indexing<T> {
 
 	String deleteIndex(String indexName);
 
-	SearchResponse search(String keyword) throws IOException;
+	Map<String, SearchResponse> search(String keyword) throws IOException;
 }

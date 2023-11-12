@@ -56,4 +56,8 @@ public class BookRestController {
 	public ResponseEntity<?> search(String keyword) throws IOException {
 		return ResponseEntity.ok(bookService.search(keyword));
 	}
+	@PostMapping("/searchTest")
+	public ResponseEntity<?> searchTest(String keyword) throws IOException {
+		return ResponseEntity.ok(bookService.searchTest(keyword));
+	}
 }
