@@ -114,7 +114,7 @@ public class IndexingImpl<T> implements Indexing<T> {
 
         int resultSize = result.getHits().getHits().length;
         if (resultSize <= 2) {
-            result = invokeSearch(titleDescShouldQuery(keyword), defaultResultSize-resultSize);
+            result = invokeSearch(allShouldQuery(keyword), defaultResultSize - resultSize);
             resultMap.put("result2", result);
         }
 
@@ -124,28 +124,18 @@ public class IndexingImpl<T> implements Indexing<T> {
     private static BoolQueryBuilder descMustQuery(String keyword) {
         return QueryBuilders.boolQuery()
                 .must(QueryBuilders.matchPhraseQuery("description", keyword));
-//                .must(QueryBuilders.existsQuery("description"));
     }
 
-    private static BoolQueryBuilder titleDescShouldQuery(String keyword) {
+    private static BoolQueryBuilder allShouldQuery(String keyword) {
         return QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("title", keyword))
-                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
-                .should(QueryBuilders.matchPhraseQuery("title", keyword))
-                .should(QueryBuilders.matchPhraseQuery("description", keyword));
+                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND).boost(2))
+                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND).boost(4))
+                .should(QueryBuilders.matchPhraseQuery("title", keyword).boost(3))
+                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(5))
+                .should(QueryBuilders.matchQuery("subInfoText", keyword))
+                .should(QueryBuilders.matchPhraseQuery("subInfoText", keyword));
     }
 
-//    private static BoolQueryBuilder allQuery(String keyword) {
-//        return QueryBuilders.boolQuery()
-//                .should(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND))
-//                .should(QueryBuilders.matchQuery("subInfoText", keyword))
-//                .should(QueryBuilders.matchQuery("description", keyword).operator(Operator.AND))
-//                .should(QueryBuilders.matchPhraseQuery("title", keyword))
-//                .should(QueryBuilders.matchPhraseQuery("subInfoText", keyword))
-//                .should(QueryBuilders.matchPhraseQuery("description", keyword).boost(2))
-//                .must(QueryBuilders.existsQuery("description"));
-//    }
     private SearchResponse invokeSearch(BoolQueryBuilder boolQueryBuilder, int size) throws IOException {
         return elasticsearchClient.search(createSearchReq(boolQueryBuilder, size), RequestOptions.DEFAULT);
     }
