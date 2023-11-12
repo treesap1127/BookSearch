@@ -38,8 +38,6 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-val frontendDir = "$projectDir/src/main/reactfront"
-
 sourceSets {
     main {
         resources {
