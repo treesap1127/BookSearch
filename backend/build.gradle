@@ -10,7 +10,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
     compileOnly {
-        extendsFrom configurations.annotationProcessor.get()
+        extendsFrom annotationProcessor
     }
 }
 
@@ -28,7 +28,6 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    // 아래의 의존성은 필요에 따라 주석을 제거하고 추가할 수 있습니다.
     // implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     // runtimeOnly 'mysql:mysql-connector-java'
     // implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
