@@ -109,15 +109,8 @@ public class IndexingImpl<T> implements Indexing<T> {
         if (result.getHits().getHits().length == 0) {
             result = invokeSearch(titleDescShouldQuery(keyword));
         }
-        if (result.getHits().getHits().length == 0) {
-            result = invokeSearch(allQuery(keyword));
-        }
 
         return result;
-    }
-
-    private SearchResponse invokeSearch(BoolQueryBuilder boolQueryBuilder) throws IOException {
-        return elasticsearchClient.search(createSearchReq(boolQueryBuilder), RequestOptions.DEFAULT);
     }
 
     private static SearchRequest createSearchReq(BoolQueryBuilder boolQueryBuilder) {
@@ -129,6 +122,10 @@ public class IndexingImpl<T> implements Indexing<T> {
 
         searchRequest.source(sourceBuilder);
         return searchRequest;
+    }
+
+    private SearchResponse invokeSearch(BoolQueryBuilder boolQueryBuilder) throws IOException {
+        return elasticsearchClient.search(createSearchReq(boolQueryBuilder), RequestOptions.DEFAULT);
     }
 
     private static BoolQueryBuilder descMustQuery(String keyword) {
