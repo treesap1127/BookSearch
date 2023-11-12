@@ -3,6 +3,7 @@ package com.core.book.controller;
 import java.io.IOException;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,7 @@ public class BookRestController {
 		return ResponseEntity.ok(message);
 	}
 
+
 	/**
 	 * 인덱스 삭제
 	 * @param indexVo
@@ -42,7 +44,13 @@ public class BookRestController {
 	@PostMapping("/deleteIndex")
 	public ResponseEntity<?> initIndex(IndexVo indexVo) throws IOException{
 		indexVo.setIndexName("book");
-		String message =indexing.deleteIndex(indexVo.getIndexName()); 
+		String message =indexing.deleteIndex(indexVo.getIndexName());
+		return ResponseEntity.ok(message);
+	}
+
+	@PostMapping("/uploadByFolder")//index가 파일명이랑
+	public ResponseEntity<?> uploadByFolder() throws IOException{
+		String message = bookService.uploadByFolder();
 		return ResponseEntity.ok(message);
 	}
 

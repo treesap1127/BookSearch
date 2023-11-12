@@ -15,4 +15,7 @@ public interface BookService<T> {
 
 
 	List<SearchHit[]> searchTest(String keyword) throws IOException;
+
+	String uploadByFolder() throws IOException;
+
 }
