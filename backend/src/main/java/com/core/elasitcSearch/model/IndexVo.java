@@ -2,9 +2,12 @@ package com.core.elasitcSearch.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
+@AllArgsConstructor
 public class IndexVo {
 	private String indexName;
 	private String fileName;

@@ -45,6 +45,11 @@ elasticsearch:
   rest:
     connection-timeout: 3600000
 
+jwt:
+  header: Authorization
+  secret: +5YX+OQfSUhJIgTMuhienEaM36BaBhHR4wSSyYf6uwKAre2zEUEK+2CjPMhPKG/e0yaidQwrnTnp8ZlsEm9lFg==
+  token-validity-in-seconds: 1800 # (초)
+  
 logging:
   level:
     org:

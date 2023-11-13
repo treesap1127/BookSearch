@@ -1,4 +1,4 @@
-package com.core.elasitcSearch;
+package com.core.elasitcSearch.dao;
 
 import java.io.IOException;
 import java.util.List;

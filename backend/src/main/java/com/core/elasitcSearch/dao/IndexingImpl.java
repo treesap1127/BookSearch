@@ -1,4 +1,4 @@
-package com.core.elasitcSearch;
+package com.core.elasitcSearch.dao;
 
 import static java.util.Objects.nonNull;
 
@@ -32,7 +32,8 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
 
-import com.core.elasitcSearch.config.ElasticSearchConfig;
+import com.core.config.ElasticSearchConfig;
+import com.core.elasitcSearch.IndexEnum;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
