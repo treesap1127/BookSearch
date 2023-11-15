@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styles from './searchPage.css';
+import styles from '../../common/searchPage.css';
 import Footer from "../../common/Footer";
 import Navigation from "../../common/Navigation";
 
