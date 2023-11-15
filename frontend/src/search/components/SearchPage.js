@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styles from './style.css';
+import styles from './searchPage.css';
 
 function SearchPage() {
     const [searchResults, setSearchResults] = useState([]);
