@@ -37,7 +37,6 @@ function Footer() {
                     <div className="text-wrapper-8">Subscribe</div>
                 </button>
             </div>
-
         </div>
 
     );
