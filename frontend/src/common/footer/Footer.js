@@ -11,7 +11,7 @@ function Footer() {
                 <div className="blog">admin</div>
                 <div className="overlap-group">
                     <p className="element-brand-inc">
-                        © 2022 장지훈(github.com/jihunz), 이태성(github.com/treesap1127). 해당 사이트의 모든 요소에 대한 저작권은
+                        © 2023 이태성(github.com/treesap1127), 장지훈(github.com/jihunz). 해당 사이트의 모든 요소에 대한 저작권은
                         이 둘에게 있으며 무단 도용과 상업적 사용을 절대 금지합니다.
                     </p>
                 </div>
