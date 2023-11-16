@@ -1,0 +1,228 @@
+.container {
+    background-color: #1e2128;
+    height: 356px;
+    position: absolute;
+    top: 1558px;
+    width: 1920px;
+}
+
+.footer-flex {
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*justify-content: center;*/
+}
+
+/* Text Wrappers */
+.text-wrapper {
+    color: #ffffff;
+    font-family: "Lexend", Helvetica;
+    font-size: 20px;
+    font-weight: 700;
+    left: 444px;
+    letter-spacing: 0;
+    line-height: 30px;
+    position: absolute;
+    top: 95px;
+    width: 132px;
+}
+
+.text-wrapper-2 {
+    color: #ffffff;
+    font-family: "Lexend", Helvetica;
+    font-size: 20px;
+    font-weight: 700;
+    left: 604px;
+    letter-spacing: 0;
+    line-height: 30px;
+    position: absolute;
+    top: 95px;
+    width: 132px;
+}
+
+.text-wrapper-3 {
+    color: #ffffff;
+    font-family: "Manrope", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 444px;
+    letter-spacing: 0;
+    line-height: 22px;
+    position: absolute;
+    top: 141px;
+    width: 132px;
+}
+
+/* Blog */
+.blog {
+    color: #ffffff;
+    font-family: "Manrope", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 604px;
+    letter-spacing: 0;
+    line-height: 22px;
+    position: absolute;
+    top: 141px;
+    width: 132px;
+}
+
+/* Overlap Group */
+.overlap-group {
+    height: 22px;
+    left: 450px;
+    position: absolute;
+    top: 310px;
+    width: 1020px;
+}
+
+/* Element Brand Inc */
+.element-brand-inc {
+    color: #a8adb7;
+    font-family: "Manrope", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 0;
+    line-height: 22px;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+}
+
+/* Text Wrapper 4 */
+.text-wrapper-4 {
+    color: #a8adb7;
+    font-family: "Manrope", Helvetica;
+    font-size: 11px;
+    font-weight: 400;
+    left: 482px;
+    letter-spacing: 0;
+    line-height: 18px;
+    position: absolute;
+    top: 2px;
+    white-space: nowrap;
+}
+
+/* Textbox */
+.textbox {
+    background-color: #323743;
+    border-radius: 4px 0px 0px 4px;
+    height: 35px;
+    left: 924px;
+    position: absolute;
+    top: 162px;
+    width: 749px;
+}
+
+/* Text Wrapper 5 */
+.text-wrapper-5 {
+    color: #bdc1ca;
+    font-family: "Manrope", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 34px;
+    letter-spacing: 0;
+    line-height: 22px;
+    position: absolute;
+    top: 6px;
+    width: 583px;
+}
+
+/* Frame */
+.frame {
+    height: 16px;
+    left: 12px;
+    position: absolute;
+    top: 10px;
+    width: 16px;
+}
+
+/* Text Wrapper 6 */
+.text-wrapper-6 {
+    color: #9f79f3;
+    font-family: "Lexend", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 924px;
+    letter-spacing: 0;
+    line-height: 30px;
+    position: absolute;
+    top: 95px;
+    white-space: nowrap;
+}
+
+/* P */
+.p {
+    color: #ffffff;
+    font-family: "Manrope", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 924px;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    top: 125px;
+    white-space: nowrap;
+}
+
+/* Group */
+.group {
+    height: 48px;
+    left: 132px;
+    position: absolute;
+    top: 96px;
+    width: 151px;
+}
+
+/* Image */
+.image {
+    height: 42px;
+    left: 0;
+    position: absolute;
+    top: 3px;
+    width: 48px;
+}
+
+/* Text Wrapper 7 */
+.text-wrapper-7 {
+    color: #ffffff;
+    font-family: "Lexend", Helvetica;
+    font-size: 32px;
+    font-weight: 700;
+    left: 58px;
+    letter-spacing: 0;
+    line-height: 48px;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+}
+
+/* Button */
+.button {
+    all: unset;
+    background-color: #6d31ed;
+    border-radius: 0px 4px 4px 0px;
+    box-sizing: border-box;
+    height: 36px;
+    left: 1674px;
+    overflow: hidden;
+    position: absolute;
+    top: 162px;
+    width: 114px;
+}
+
+/* Text Wrapper 8 */
+.text-wrapper-8 {
+    color: #ffffff;
+    font-family: "Manrope", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 24px;
+    letter-spacing: 0;
+    line-height: 22px;
+    position: absolute;
+    top: 6px;
+    white-space: nowrap;
+}
