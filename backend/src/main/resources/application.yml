@@ -1,7 +1,7 @@
 server:
   port: 8081
   context-path: /
-  
+
 spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
@@ -16,23 +16,24 @@ spring:
   servlet:
     multipart:
       max-file-size: 1100MB
-      max-request-size : 1100MB
-#  cors:
+      max-request-size: 1100MB
+#  mvc:
+    #  cors:
     # CORS를 활성화합니다.
-#    enabled: true
+    #    enabled: true
     # 허용할 Origin 리스트를 설정합니다. 여러 개를 지정할 수 있습니다.
-#    allowed-origins:
-#      - http://localhost:3000
+    #    allowed-origins:
+    #      - http://localhost:3000
     # 허용할 HTTP method 리스트를 설정합니다.
-#    allowed-methods:
-#      - GET
-#      - POST
-#      - PUT
-#      - DELETE
+    #    allowed-methods:
+    #      - GET
+    #      - POST
+    #      - PUT
+    #      - DELETE
     # 허용할 HTTP header 리스트를 설정합니다.
-#    allowed-headers:
-#      - Authorization
-#      - Content-Type
+    #    allowed-headers:
+    #      - Authorization
+    #      - Content-Type
     # 브라우저가 자동으로 추가하는 헤더를 허용할지 여부를 설정합니다.
 #    allow-credentials: true
 #    CORS 1시간 캐시 사용
@@ -49,7 +50,7 @@ jwt:
   header: Authorization
   secret: +5YX+OQfSUhJIgTMuhienEaM36BaBhHR4wSSyYf6uwKAre2zEUEK+2CjPMhPKG/e0yaidQwrnTnp8ZlsEm9lFg==
   token-validity-in-seconds: 1800 # (초)
-  
+
 logging:
   level:
     org:
