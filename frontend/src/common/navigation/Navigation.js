@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import css from './navigation.css'
 
-function Navigation() {
+function Navigation(props) {
+    const { handleKeyPress } = props;
+
     return (
         <header className="n-con">
             <div className="n-wr">
@@ -19,7 +21,10 @@ function Navigation() {
                         alt="Frame"
                         src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/frame-4.svg"
                     />
-                    <input className="search-input" placeholder={"Search"}/>
+                    <input
+                        className="search-input"
+                        placeholder={"Search"}
+                    />
                 </div>
                 <div id="setting">
                     <a href="/">

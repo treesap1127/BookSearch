@@ -27,6 +27,10 @@ function SearchPage() {
         }
     }
 
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') search();
+    }
+
     return (
         <div className="container">
             <Navigation/>
@@ -57,8 +61,9 @@ function SearchPage() {
                         <input
                             className="search-main"
                             placeholder={"Search"}
-                            value={keyword} // 입력란의 값은 keyword 상태와 연결
+                            value={keyword}
                             onChange={(e) => setKeyword(e.target.value)}
+                            onKeyDown={handleKeyPress}
                         />
                         <div>
                             <button className="search-main-btn" onClick={search}>모두</button>
@@ -74,11 +79,14 @@ function SearchPage() {
                     <div className="result-con">
                         <div className="result-text-wr">
                             <p>Books</p>
-                            <p>10</p>
+                            <p>{result.length}</p>
                         </div>
                         <div className="book-con">
                             {result.map((item, idx) => (
-                                <Book key={idx} item={item} />
+                                <Book
+                                    key={idx}
+                                    item={item}
+                                />
                             ))}
                         </div>
                     </div>

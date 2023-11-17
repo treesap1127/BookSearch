@@ -3,9 +3,19 @@ import css from './book.css'
 
 function Book(props) {
     const { item } = props;
+    const [hide, setHide] = useState(true);
+
+    const toggleHide = () => {
+        resetHide();
+        setHide(!hide);
+    }
+
+    function resetHide() {
+        setHide(true);
+    }
 
     return (
-        <div className="book-each">
+        <div className="book-each" onClick={toggleHide}>
             <div className="book-top">
                 <div>
                     <img className="book-img" src={item.image}/>
@@ -42,7 +52,7 @@ function Book(props) {
                 </div>
             </div>
             <div className="book-bottom">
-                <div className="desc hide">
+                <div className={`desc ${hide ? 'hide' : ''}`}>
                     <p>{item.description}</p>
                 </div>
             </div>
