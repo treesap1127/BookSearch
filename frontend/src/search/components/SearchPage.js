@@ -9,6 +9,10 @@ import axios from "axios";
 function SearchPage() {
     const [result, setResult] = useState([]);
     const [keyword, setKeyword] = useState("");
+    const [selectedBookIndex, setSelectedBookIndex] = useState(-1);
+    const toggleDesc = (index) => {
+        setSelectedBookIndex(index);
+    };
 
     async function search() {
         try {
@@ -86,6 +90,9 @@ function SearchPage() {
                                 <Book
                                     key={idx}
                                     item={item}
+                                    idx={idx}
+                                    isToggled={idx === selectedBookIndex}
+                                    toggleDesc={toggleDesc}
                                 />
                             ))}
                         </div>
