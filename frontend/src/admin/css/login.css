@@ -1,0 +1,76 @@
+body {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+  }
+
+.login_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-image: url("../image/loginBg.jpg");
+}
+
+.login-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 20px;
+    width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgb(233 233 233 / 80%);
+    height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.login_shadow{
+    width: 80%;
+    height: 50%;
+    position: relative;
+}
+
+.ipBox {
+    width: 60%;
+    height: 20%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ipText {
+    font-size: 23px;
+    text-align: center;
+    color: #000;
+    padding: 10px;
+    font-family: fantasy;
+}
+
+
+.custom-input {
+    width: 90%;
+    padding: 23px;
+    margin: 16px 0px 16px 0px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    background: #fdfdfd;
+}
+
+.btn {
+    width: 77%;
+    height: 13%;
+    padding: 10px;
+    background-color: #89c17a;
+    color: #fff;
+    font-size: 17px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
