@@ -3,6 +3,7 @@ package com.core.book.controller;
 import java.io.IOException;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,11 +60,11 @@ public class BookRestController {
 	 * @return
 	 * @throws IOException
 	 */
-	@PostMapping("/search")
+	@GetMapping("/search")
 	public ResponseEntity<?> search(String keyword) throws IOException {
 		return ResponseEntity.ok(bookService.search(keyword));
 	}
-	@PostMapping("/searchTest")
+	@GetMapping("/searchTest")
 	public ResponseEntity<?> searchTest(String keyword) throws IOException {
 		return ResponseEntity.ok(bookService.searchTest(keyword));
 	}
