@@ -12,7 +12,7 @@ public class IndexVo {
 	private String indexName;
 	private String fileName;
 	private String keyword;
-	private int indexSeq;
+	private Integer indexSeq;
 	private MultipartFile excelFile;
 	
 }

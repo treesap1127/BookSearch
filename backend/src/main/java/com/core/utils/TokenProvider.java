@@ -4,7 +4,11 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -104,5 +109,33 @@ public class TokenProvider implements InitializingBean {
         	log.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
+    }
+
+	public void invalidateToken(String token) {
+		Set<String> invalidatedTokens = new HashSet<>();
+        if (validateToken(token)) {
+            log.info("토큰을 무효화합니다.: " + token);
+            // 무효화된 토큰을 저장
+            invalidatedTokens.add(token);
+        } else {
+            log.info("이미 무효화된 토큰입니다.: " + token);
+        }
+	}
+
+	public boolean isValidJwt(String token) {
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            String authorities = claims.get("auth", String.class);
+            if (authorities != null && authorities.contains("ROLE_ADMIN")) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
