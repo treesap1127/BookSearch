@@ -9,9 +9,9 @@ import axios from "axios";
 function SearchPage() {
     const [result, setResult] = useState([]);
     const [keyword, setKeyword] = useState("");
-    const [selectedBookIndex, setSelectedBookIndex] = useState(-1);
+    const [clickedBook, setClickedBook] = useState(-1);
     const toggleDesc = (index) => {
-        setSelectedBookIndex(index);
+        setClickedBook(index);
     };
 
     async function search() {
@@ -24,6 +24,7 @@ function SearchPage() {
                     }
                 }
             );
+            setClickedBook(-1);
             setResult(response.data);
         } catch (error) {
             console.log(error);
@@ -91,7 +92,7 @@ function SearchPage() {
                                     key={idx}
                                     item={item}
                                     idx={idx}
-                                    isToggled={idx === selectedBookIndex}
+                                    isToggled={idx === clickedBook}
                                     toggleDesc={toggleDesc}
                                 />
                             ))}
