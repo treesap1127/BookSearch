@@ -28,8 +28,6 @@
 
 .author {
     display: flex;
-    width: 86.2px;
-    height: 17px;
     flex-direction: column;
     justify-content: center;
     color: #302119;

@@ -1,30 +1,25 @@
 import React, {useState} from 'react';
 import css from './book.css'
 
-function Book() {
-    const [searchResults, setSearchResults] = useState([]);
-
-    const handleSearch = (query) => {
-        // 검색 결과를 가져오는 로직을 구현하고 setSearchResults로 결과를 설정합니다.
-        // 예시: 검색 API 호출 등
-    };
+function Book(props) {
+    const { item } = props;
 
     return (
         <div className="book-each">
             <div className="book-top">
                 <div>
-                    <img className="book-img" src=""/>
+                    <img className="book-img" src={item.image}/>
                 </div>
                 <div className="book-info">
-                    <p className="title">세상물정의 사회학</p>
-                    <p className="author">노명우</p>
-                    <p className="publisher">니은서점</p>
+                    <p className="title">{item.title}</p>
+                    <p className="author">{item.author}</p>
+                    <p className="publisher">{item.publisher}</p>
                     <div className="isbn-wr">
                         <div className="isbn">
-                            <p>ISBN: 9788992512329</p>
+                            <p>ISBN: {item.isbn}</p>
                         </div>
                         <div className="isbn">
-                            <p>KDC: 594675.0</p>
+                            <p>KDC: {item.kdc}</p>
                         </div>
                     </div>
                 </div>
@@ -48,10 +43,7 @@ function Book() {
             </div>
             <div className="book-bottom">
                 <div className="desc hide">
-                    <p>책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개
-                        내용책 소개
-                        내용책
-                        소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용ㅍ</p>
+                    <p>{item.description}</p>
                 </div>
             </div>
         </div>

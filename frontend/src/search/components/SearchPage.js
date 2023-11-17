@@ -20,7 +20,7 @@ function SearchPage() {
                     }
                 }
             );
-            return response.data;
+            setResult(response.data);
         } catch (error) {
             console.log(error);
             throw error;
@@ -77,16 +77,9 @@ function SearchPage() {
                             <p>10</p>
                         </div>
                         <div className="book-con">
-                            <Book/>
-                            <Book/>
-                            <Book/>
-                            <Book/>
-                            <Book/>
-                            <Book/>
-                            <Book/>
-                            <Book/>
-                            <Book/>
-                            <Book/>
+                            {result.map((item, idx) => (
+                                <Book key={idx} item={item} />
+                            ))}
                         </div>
                     </div>
                 </div>
