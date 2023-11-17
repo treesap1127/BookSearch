@@ -1,220 +1,170 @@
-.container {
-    background-color: #1e2128;
+footer {
+    width: 100%;
     height: 356px;
-    position: absolute;
-    top: 1558px;
+    background-color: #1E2128;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    flex-direction: column;
+}
+
+.f-wr {
     width: 1920px;
+    padding: 0 50px 0 50px;
 }
 
-/* Text Wrappers */
-.text-wrapper {
-    color: #ffffff;
-    font-family: "Lexend", Helvetica;
-    font-size: 20px;
-    font-weight: 700;
-    left: 444px;
-    letter-spacing: 0;
-    line-height: 30px;
-    position: absolute;
-    top: 95px;
-    width: 132px;
+.f-top {
+    height: 315px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.text-wrapper-2 {
-    color: #ffffff;
-    font-family: "Lexend", Helvetica;
-    font-size: 20px;
-    font-weight: 700;
-    left: 604px;
-    letter-spacing: 0;
-    line-height: 30px;
-    position: absolute;
-    top: 95px;
-    width: 132px;
+.f-logo-wr {
+    display: flex;
+    align-items: center;
+    margin-right: 163px;
 }
 
-.text-wrapper-3 {
-    color: #ffffff;
-    font-family: "Manrope", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 444px;
-    letter-spacing: 0;
-    line-height: 22px;
-    position: absolute;
-    top: 141px;
-    width: 132px;
+.f-logo-div {
+    margin-right: 10px;
 }
 
-/* Blog */
-.blog {
-    color: #ffffff;
-    font-family: "Manrope", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 604px;
-    letter-spacing: 0;
-    line-height: 22px;
-    position: absolute;
-    top: 141px;
-    width: 132px;
-}
-
-/* Overlap Group */
-.overlap-group {
-    height: 22px;
-    left: 450px;
-    position: absolute;
-    top: 310px;
-    width: 1020px;
-}
-
-/* Element Brand Inc */
-.element-brand-inc {
-    color: #a8adb7;
-    font-family: "Manrope", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: 0;
-    line-height: 22px;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-}
-
-/* Text Wrapper 4 */
-.text-wrapper-4 {
-    color: #a8adb7;
-    font-family: "Manrope", Helvetica;
-    font-size: 11px;
-    font-weight: 400;
-    left: 482px;
-    letter-spacing: 0;
-    line-height: 18px;
-    position: absolute;
-    top: 2px;
-    white-space: nowrap;
-}
-
-/* Textbox */
-.textbox {
-    background-color: #323743;
-    border-radius: 4px 0px 0px 4px;
-    height: 35px;
-    left: 924px;
-    position: absolute;
-    top: 162px;
-    width: 749px;
-}
-
-/* Text Wrapper 5 */
-.text-wrapper-5 {
-    color: #bdc1ca;
-    font-family: "Manrope", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 34px;
-    letter-spacing: 0;
-    line-height: 22px;
-    position: absolute;
-    top: 6px;
-    width: 583px;
-}
-
-/* Frame */
-.frame {
-    height: 16px;
-    left: 12px;
-    position: absolute;
-    top: 10px;
-    width: 16px;
-}
-
-/* Text Wrapper 6 */
-.text-wrapper-6 {
-    color: #9f79f3;
-    font-family: "Lexend", Helvetica;
-    font-size: 20px;
-    font-weight: 400;
-    left: 924px;
-    letter-spacing: 0;
-    line-height: 30px;
-    position: absolute;
-    top: 95px;
-    white-space: nowrap;
-}
-
-/* P */
-.p {
-    color: #ffffff;
-    font-family: "Manrope", Helvetica;
-    font-size: 12px;
-    font-weight: 400;
-    left: 924px;
-    letter-spacing: 0;
-    line-height: 20px;
-    position: absolute;
-    top: 125px;
-    white-space: nowrap;
-}
-
-/* Group */
-.group {
-    height: 48px;
-    left: 132px;
-    position: absolute;
-    top: 96px;
-    width: 151px;
-}
-
-/* Image */
-.image {
-    height: 42px;
-    left: 0;
-    position: absolute;
-    top: 3px;
+.f-logo {
     width: 48px;
+    height: 42px;
+    flex-shrink: 0;
 }
 
-/* Text Wrapper 7 */
-.text-wrapper-7 {
-    color: #ffffff;
-    font-family: "Lexend", Helvetica;
+.f-logo-wr p {
+    color: #FFF;
+    font-family: Lexend;
     font-size: 32px;
+    font-style: normal;
     font-weight: 700;
-    left: 58px;
-    letter-spacing: 0;
     line-height: 48px;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
 }
 
-/* Button */
-.button {
-    all: unset;
-    background-color: #6d31ed;
-    border-radius: 0px 4px 4px 0px;
-    box-sizing: border-box;
-    height: 36px;
-    left: 1674px;
-    overflow: hidden;
-    position: absolute;
-    top: 162px;
-    width: 114px;
+.f-nav-con {
+    display: flex;
+    margin-right: auto;
 }
 
-/* Text Wrapper 8 */
-.text-wrapper-8 {
-    color: #ffffff;
-    font-family: "Manrope", Helvetica;
+.f-nav-wr {
+    width: 130px;
+}
+
+.f-nav-wr2 {
+    margin-right: 188px;
+}
+
+.f-main-menu {
+    color: #FFF;
+    font-family: Lexend;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px; /* 150% */
+    margin-bottom: 16px;
+}
+
+.f-sub-menu {
+    color: #FFF;
+    font-family: Manrope;
     font-size: 14px;
+    font-style: normal;
     font-weight: 400;
-    left: 24px;
-    letter-spacing: 0;
-    line-height: 22px;
-    position: absolute;
-    top: 6px;
-    white-space: nowrap;
+    line-height: 22px; /* 157.143% */
 }
+
+.subscribe-wr {
+
+}
+
+.subscribe-wr p:nth-child(1) {
+    color: #9F79F3;
+    font-family: Lexend;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px; /* 150% */
+}
+
+.subscribe-wr p:nth-child(2) {
+    color: #FFF;
+    font-family: Manrope;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 166.667% */
+}
+
+.email-img {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 25px;
+    left: 12px;
+}
+
+.subscribe-input {
+    display: inline-flex;
+    padding: 7px 132px 6px 34px;
+    align-items: center;
+    gap: 6px;
+    border-radius: 4px 0px 0px 4px;
+    background: #323743;
+    border: none;
+    color: white;
+}
+
+.subscribe-input input::placeholder {
+    width: 623px;
+    color: #BDC1CA;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.subscribe-input-btn {
+    display: inline-flex;
+    padding: 7px 23.5px 7px 24.5px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px 4px 4px 0px;
+    background: #6D31ED;
+    border: none;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.f-bottom {
+    text-align: center;
+}
+
+.f-bottom > p {
+    color: #A8ADB7;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px; /* 157.143% */
+}
+

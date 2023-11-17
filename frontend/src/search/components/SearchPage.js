@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import styles from '../../common/searchPage.css';
-import Footer from "../../common/footer/Footer";
+import css from './searchPage.css';
+import footerCss from '../../common/footer/footer.css';
 import Navigation from "../../common/navigation/Navigation";
+import Footer from "../../common/footer/Footer";
 
 function SearchPage() {
     const [searchResults, setSearchResults] = useState([]);
@@ -12,394 +13,82 @@ function SearchPage() {
     };
 
     return (
-        // <div className="index">
-        //     <Navigation/>
-        //     <Footer/>
-        // </div>
-        <div className="index">
-            <div className="div">
-                <Footer/>
-                <div className="group-2">
-                    <div className="text-wrapper-9">Discover</div>
-                    <img
-                        className="img"
-                        alt="Frame"
-                        src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/frame-1.svg"
-                    />
-                </div>
-                <p className="text-wrapper-10">궁금한 내용, 제목, 저자 등을 이용해서 검색해보세요!</p>
-                <div className="overlap-wrapper">
-                    <div className="overlap">
-                        <div className="textbox-2">
-                            <input className="text-wrapper-11" placeholder={"Search.."}/>
+        <div className="container">
+            <Navigation/>
+            <div className="wrapper">
+                <div>
+                    <div className="intro-con">
+                        <div>
                             <img
-                                className="frame-2"
-                                alt="Frame"
+                                className="compass"
+                                alt="compass"
+                                src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/frame-1.svg"
+                            />
+                        </div>
+                        <div><h3 className="intro-text1">Discover</h3></div>
+                        <div><p className="intro-text2">궁금한 내용, 제목, 저자 등을 검색해보세요!</p></div>
+                    </div>
+                    <div className="search-con-main">
+                        <div>
+                            <img
+                                className="search-icon-main"
                                 src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/frame-2.svg"
                             />
                         </div>
-                        <div className="textbox-3">
-                            <div className="articles">All</div>
-                            <img
-                                className="frame-3"
-                                alt="Frame"
-                                src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/frame-3.svg"
-                            />
+                        <input className="search-main" placeholder={"Search"}/>
+                        <div>
+                            <button className="search-main-btn">모두</button>
+                            <svg className="search-main-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M4.60909 7.00003L3 8.60912L12 17.6091L21 8.60912L19.3909 7.00003L12 14.3909L4.60909 7.00003Z" fill="white"/>
+                            </svg>
                         </div>
+
                     </div>
-                </div>
-                <Navigation/>
-                <div className="overlap-3">
-                    <div className="group-3">
-                        <div className="heading-link-books">Books</div>
-                        <div className="heading-link">2155</div>
-                        <div className="overlap-4">
-                            <div className="all-wrapper">
-                                <div className="all">ALL</div>
-                            </div>
-                            <div className="list-item">
-                                <div className="overlap-5">
-                                    <div className="div-book-description">
-                                        <div className="link">
-                                            <div className="span-authors-list">
-                                                <div className="link-gerry-souter">노명우</div>
-                                            </div>
-                                        </div>
-                                        <div className="link-gerry-souter-wrapper">
-                                            <div className="link-gerry-souter">서울셀렉션</div>
-                                        </div>
-                                        <div className="div-badge">
-                                            <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                                        </div>
-                                        <div className="kdc-wrapper">
-                                            <div className="text-wrapper-13">KDC: 594675.0</div>
-                                        </div>
-                                    </div>
-                                    <div className="text-wrapper-14">세상물정의 사회학</div>
+                    <div className="result-con">
+                        <div className="result-text-wr">
+                            <p>Books</p>
+                            <p>10</p>
+                        </div>
+                        <div className="book-con">
+                            <div className="book-each">
+                                <div>
+                                    <img className="book-img" src=""/>
                                 </div>
-                                <div className="div-book-cover">
-                                    <div className="overlap-6">
-                                        <div className="ipad-jpg"/>
-                                        <div className="overlap-group-wrapper">
-                                            <div className="pseudo-wrapper">
-                                                <div className="pseudo"/>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <p className="title">세상물정의 사회학</p>
+                                <p className="author">노명우</p>
+                                <p className="publisher">니은서점</p>
+                                <div className="isbn">
+                                    <p>ISBN: 9788992512329</p>
                                 </div>
-                                <div className="overlap-7">
-                                    <div className="div-plus-bar"/>
-                                    <div className="div-plus-bar-2"/>
-                                    <div className="div-plus-bar-3"/>
-                                    <div className="div-plus-bar-4"/>
+                                <div className="isbn">
+                                    <p>KDC: 594675.0</p>
+                                </div>
+                                <div className="more-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <g clip-path="url(#clip0_41_68)">
+                                            <rect y="7" width="8" height="2" fill="#9A938D"/>
+                                            <rect x="8" y="7" width="8" height="2" fill="#9A938D"/>
+                                            <rect x="7" width="2" height="8" fill="#9A938D"/>
+                                            <rect x="7" y="8" width="2" height="8" fill="#9A938D"/>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_41_68">
+                                                <rect width="16" height="16" fill="white"/>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div className="desc">
+                                    <p>책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개
+                                        내용책
+                                        소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용책 소개 내용ㅍ</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="list-item-2">
-                            <div className="overlap-5">
-                                <div className="div-book-description">
-                                    <div className="link">
-                                        <div className="span-authors-list">
-                                            <div className="link-gerry-souter">노명우</div>
-                                        </div>
-                                    </div>
-                                    <div className="link-gerry-souter-wrapper">
-                                        <div className="link-gerry-souter">서울셀렉션</div>
-                                    </div>
-                                    <div className="div-badge">
-                                        <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                                    </div>
-                                    <div className="kdc-wrapper">
-                                        <div className="text-wrapper-13">KDC: 594675.0</div>
-                                    </div>
-                                </div>
-                                <div className="text-wrapper-14">세상물정의 사회학</div>
-                            </div>
-                            <div className="div-book-cover">
-                                <div className="overlap-6">
-                                    <div className="ipad-jpg"/>
-                                    <div className="overlap-group-wrapper">
-                                        <div className="pseudo-wrapper">
-                                            <div className="pseudo"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="overlap-7">
-                                <div className="div-plus-bar"/>
-                                <div className="div-plus-bar-2"/>
-                                <div className="div-plus-bar-3"/>
-                                <div className="div-plus-bar-4"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="group-4">
-                        <div className="heading-link-books">Books</div>
-                        <div className="heading-link">2155</div>
-                    </div>
-                    <div className="list-item-3">
-                        <div className="overlap-5">
-                            <div className="div-book-description">
-                                <div className="link">
-                                    <div className="span-authors-list">
-                                        <div className="link-gerry-souter">노명우</div>
-                                    </div>
-                                </div>
-                                <div className="link-gerry-souter-wrapper">
-                                    <div className="link-gerry-souter">서울셀렉션</div>
-                                </div>
-                                <div className="div-badge">
-                                    <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                                </div>
-                                <div className="kdc-wrapper">
-                                    <div className="text-wrapper-13">KDC: 594675.0</div>
-                                </div>
-                            </div>
-                            <div className="text-wrapper-14">세상물정의 사회학</div>
-                        </div>
-                        <div className="div-book-cover">
-                            <div className="overlap-6">
-                                <div className="ipad-jpg"/>
-                                <div className="overlap-group-wrapper">
-                                    <div className="pseudo-wrapper">
-                                        <div className="pseudo"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="overlap-7">
-                            <div className="div-plus-bar"/>
-                            <div className="div-plus-bar-2"/>
-                            <div className="div-plus-bar-3"/>
-                            <div className="div-plus-bar-4"/>
-                        </div>
-                    </div>
-                </div>
-                <div className="list-item-4">
-                    <div className="overlap-5">
-                        <div className="div-book-description">
-                            <div className="link">
-                                <div className="span-authors-list">
-                                    <div className="link-gerry-souter">노명우</div>
-                                </div>
-                            </div>
-                            <div className="link-gerry-souter-wrapper">
-                                <div className="link-gerry-souter">서울셀렉션</div>
-                            </div>
-                            <div className="div-badge">
-                                <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                            </div>
-                            <div className="kdc-wrapper">
-                                <div className="text-wrapper-13">KDC: 594675.0</div>
-                            </div>
-                        </div>
-                        <div className="text-wrapper-14">세상물정의 사회학</div>
-                    </div>
-                    <div className="div-book-cover">
-                        <div className="wzezyuf-ipad-jpg"/>
-                    </div>
-                    <div className="overlap-7">
-                        <div className="div-plus-bar"/>
-                        <div className="div-plus-bar-2"/>
-                        <div className="div-plus-bar-3"/>
-                        <div className="div-plus-bar-4"/>
-                    </div>
-                </div>
-                <div className="list-item-5">
-                    <div className="overlap-5">
-                        <div className="div-book-description">
-                            <div className="link">
-                                <div className="span-authors-list">
-                                    <div className="link-gerry-souter">노명우</div>
-                                </div>
-                            </div>
-                            <div className="link-gerry-souter-wrapper">
-                                <div className="link-gerry-souter">서울셀렉션</div>
-                            </div>
-                            <div className="div-badge">
-                                <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                            </div>
-                            <div className="kdc-wrapper">
-                                <div className="text-wrapper-13">KDC: 594675.0</div>
-                            </div>
-                        </div>
-                        <div className="text-wrapper-14">세상물정의 사회학</div>
-                    </div>
-                    <div className="div-book-cover">
-                        <div className="wzezyuf-ipad-jpg"/>
-                    </div>
-                    <div className="overlap-7">
-                        <div className="div-plus-bar"/>
-                        <div className="div-plus-bar-2"/>
-                        <div className="div-plus-bar-3"/>
-                        <div className="div-plus-bar-4"/>
-                    </div>
-                </div>
-                <div className="list-item-6">
-                    <div className="overlap-5">
-                        <div className="div-book-description">
-                            <div className="link">
-                                <div className="span-authors-list">
-                                    <div className="link-gerry-souter">노명우</div>
-                                </div>
-                            </div>
-                            <div className="link-gerry-souter-wrapper">
-                                <div className="link-gerry-souter">서울셀렉션</div>
-                            </div>
-                            <div className="div-badge">
-                                <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                            </div>
-                            <div className="kdc-wrapper">
-                                <div className="text-wrapper-13">KDC: 594675.0</div>
-                            </div>
-                        </div>
-                        <div className="text-wrapper-14">세상물정의 사회학</div>
-                    </div>
-                    <div className="div-book-cover">
-                        <div className="overlap-6">
-                            <div className="ipad-jpg"/>
-                            <div className="overlap-group-wrapper">
-                                <div className="pseudo-wrapper">
-                                    <div className="pseudo"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="overlap-7">
-                        <div className="div-plus-bar"/>
-                        <div className="div-plus-bar-2"/>
-                        <div className="div-plus-bar-3"/>
-                        <div className="div-plus-bar-4"/>
-                    </div>
-                </div>
-                <div className="list-item-7">
-                    <div className="overlap-5">
-                        <div className="div-book-description">
-                            <div className="link">
-                                <div className="span-authors-list">
-                                    <div className="link-gerry-souter">노명우</div>
-                                </div>
-                            </div>
-                            <div className="link-gerry-souter-wrapper">
-                                <div className="link-gerry-souter">서울셀렉션</div>
-                            </div>
-                            <div className="div-badge">
-                                <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                            </div>
-                            <div className="kdc-wrapper">
-                                <div className="text-wrapper-13">KDC: 594675.0</div>
-                            </div>
-                        </div>
-                        <div className="text-wrapper-14">세상물정의 사회학</div>
-                    </div>
-                    <div className="div-book-cover">
-                        <div className="overlap-6">
-                            <div className="ipad-jpg"/>
-                            <div className="overlap-group-wrapper">
-                                <div className="div-wrapper">
-                                    <div className="pseudo"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="overlap-7">
-                        <div className="div-plus-bar"/>
-                        <div className="div-plus-bar-2"/>
-                        <div className="div-plus-bar-3"/>
-                        <div className="div-plus-bar-4"/>
-                    </div>
-                </div>
-                <div className="list-item-8">
-                    <div className="overlap-5">
-                        <div className="div-book-description">
-                            <div className="link">
-                                <div className="span-authors-list">
-                                    <div className="link-gerry-souter">노명우</div>
-                                </div>
-                            </div>
-                            <div className="link-gerry-souter-wrapper">
-                                <div className="link-gerry-souter">서울셀렉션</div>
-                            </div>
-                            <div className="div-badge">
-                                <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                            </div>
-                            <div className="kdc-wrapper">
-                                <div className="text-wrapper-13">KDC: 594675.0</div>
-                            </div>
-                        </div>
-                        <div className="text-wrapper-14">세상물정의 사회학</div>
-                    </div>
-                    <div className="div-book-cover">
-                        <div className="wzezyuf-ipad-jpg"/>
-                    </div>
-                    <div className="overlap-7">
-                        <div className="div-plus-bar"/>
-                        <div className="div-plus-bar-2"/>
-                        <div className="div-plus-bar-3"/>
-                        <div className="div-plus-bar-4"/>
-                    </div>
-                </div>
-                <div className="list-item-9">
-                    <div className="overlap-5">
-                        <div className="div-book-description">
-                            <div className="link">
-                                <div className="span-authors-list">
-                                    <div className="link-gerry-souter">노명우</div>
-                                </div>
-                            </div>
-                            <div className="link-gerry-souter-wrapper">
-                                <div className="link-gerry-souter">서울셀렉션</div>
-                            </div>
-                            <div className="div-badge">
-                                <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                            </div>
-                            <div className="kdc-wrapper">
-                                <div className="text-wrapper-13">KDC: 594675.0</div>
-                            </div>
-                        </div>
-                        <div className="text-wrapper-14">세상물정의 사회학</div>
-                    </div>
-                    <div className="div-book-cover">
-                        <div className="wzezyuf-ipad-jpg"/>
-                    </div>
-                    <div className="overlap-7">
-                        <div className="div-plus-bar"/>
-                        <div className="div-plus-bar-2"/>
-                        <div className="div-plus-bar-3"/>
-                        <div className="div-plus-bar-4"/>
-                    </div>
-                </div>
-                <div className="list-item-10">
-                    <div className="overlap-5">
-                        <div className="div-book-description">
-                            <div className="link">
-                                <div className="span-authors-list">
-                                    <div className="link-gerry-souter">노명우</div>
-                                </div>
-                            </div>
-                            <div className="link-gerry-souter-wrapper">
-                                <div className="link-gerry-souter">서울셀렉션</div>
-                            </div>
-                            <div className="div-badge">
-                                <div className="text-wrapper-13">ISBN: 9788992512329</div>
-                            </div>
-                            <div className="kdc-wrapper">
-                                <div className="text-wrapper-13">KDC: 594675.0</div>
-                            </div>
-                        </div>
-                        <div className="text-wrapper-14">세상물정의 사회학</div>
-                    </div>
-                    <div className="div-book-cover">
-                        <div className="ipad-jpg-2"/>
-                    </div>
-                    <div className="overlap-7">
-                        <div className="div-plus-bar"/>
-                        <div className="div-plus-bar-2"/>
-                        <div className="div-plus-bar-3"/>
-                        <div className="div-plus-bar-4"/>
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

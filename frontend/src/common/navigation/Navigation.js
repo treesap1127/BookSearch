@@ -3,33 +3,31 @@ import css from './navigation.css'
 
 function Navigation() {
     return (
-        <div className="overlap-2">
-            <div className="container-2">
-                <div className="textbox-4">
-                    <div className="text-wrapper-12">Search...</div>
+        <header className="n-con">
+            <div className="n-wr">
+                <div className="logo">
                     <img
-                        className="frame-4"
+                        alt="Image"
+                        src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/image-120.svg"
+                    />
+                </div>
+                <div className="search-wr">
+                    <img
+                        className="search-icon"
                         alt="Frame"
                         src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/frame-4.svg"
                     />
+                    <input className="search-input" placeholder={"Search"}/>
                 </div>
-                <img
-                    className="image-2"
-                    alt="Image"
-                    src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/image-120.svg"
-                />
-                <img
-                    className="vector"
-                    alt="Vector"
-                    src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/vector.svg"
-                />
+                <div id="setting">
+                    <img
+                        id="setting-logo"
+                        alt="Vector"
+                        src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/vector.svg"
+                    />
+                </div>
             </div>
-            <img
-                className="line"
-                alt="Line"
-                src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/line-1.svg"
-            />
-        </div>
+        </header>
     );
 }
 
