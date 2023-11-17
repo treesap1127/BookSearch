@@ -20,12 +20,12 @@ function Footer() {
                     </div>
                     <div className="f-nav-con">
                         <div className="f-nav-wr">
-                            <p className="f-main-menu">검색</p>
-                            <p className="f-sub-menu">Search</p>
+                            <a href="/" className="f-main-menu">검색</a>
+                            <a href="/" className="f-sub-menu">Search</a>
                         </div>
                         <div className="f-nav-wr f-nav-wr2">
-                            <p className="f-main-menu">관리</p>
-                            <p className="f-sub-menu">Admin</p>
+                            <a href="/admin" className="f-main-menu">관리</a>
+                            <a href="/admin" className="f-sub-menu">Admin</a>
                         </div>
                     </div>
                     <div className="subscribe-wr">

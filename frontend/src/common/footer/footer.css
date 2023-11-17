@@ -55,6 +55,8 @@ footer {
 
 .f-nav-wr {
     width: 130px;
+    display: flex;
+    flex-direction: column;
 }
 
 .f-nav-wr2 {
@@ -78,10 +80,6 @@ footer {
     font-style: normal;
     font-weight: 400;
     line-height: 22px; /* 157.143% */
-}
-
-.subscribe-wr {
-
 }
 
 .subscribe-wr p:nth-child(1) {
@@ -141,19 +139,6 @@ footer {
     border: none;
     color: white;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .f-bottom {
     text-align: center;

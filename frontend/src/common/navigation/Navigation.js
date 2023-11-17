@@ -6,10 +6,12 @@ function Navigation() {
         <header className="n-con">
             <div className="n-wr">
                 <div className="logo">
-                    <img
-                        alt="Image"
-                        src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/image-120.svg"
-                    />
+                    <a href="/">
+                        <img
+                            alt="Image"
+                            src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/image-120.svg"
+                        />
+                    </a>
                 </div>
                 <div className="search-wr">
                     <img
@@ -20,11 +22,13 @@ function Navigation() {
                     <input className="search-input" placeholder={"Search"}/>
                 </div>
                 <div id="setting">
-                    <img
-                        id="setting-logo"
-                        alt="Vector"
-                        src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/vector.svg"
-                    />
+                    <a href="/">
+                        <img
+                            id="setting-logo"
+                            alt="Vector"
+                            src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/vector.svg"
+                        />
+                    </a>
                 </div>
             </div>
         </header>
