@@ -1,17 +1,31 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import css from './searchPage.css';
 import footerCss from '../../common/footer/footer.css';
 import Navigation from "../../common/navigation/Navigation";
 import Footer from "../../common/footer/Footer";
 import Book from "./Book";
+import axios from "axios";
 
 function SearchPage() {
-    const [searchResults, setSearchResults] = useState([]);
+    const [result, setResult] = useState([]);
+    const [keyword, setKeyword] = useState("");
 
-    const handleSearch = (query) => {
-        // 검색 결과를 가져오는 로직을 구현하고 setSearchResults로 결과를 설정합니다.
-        // 예시: 검색 API 호출 등
-    };
+    async function search() {
+        try {
+            const response = await axios.get(
+                'http://localhost:8081/api/book/search',
+                {
+                    params: {
+                        keyword: keyword
+                    }
+                }
+            );
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 
     return (
         <div className="container">
@@ -40,9 +54,14 @@ function SearchPage() {
                                 src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/frame-2.svg"
                             />
                         </div>
-                        <input className="search-main" placeholder={"Search"}/>
+                        <input
+                            className="search-main"
+                            placeholder={"Search"}
+                            value={keyword} // 입력란의 값은 keyword 상태와 연결
+                            onChange={(e) => setKeyword(e.target.value)}
+                        />
                         <div>
-                            <button className="search-main-btn">모두</button>
+                            <button className="search-main-btn" onClick={search}>모두</button>
                             <svg className="search-main-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                  viewBox="0 0 24 24" fill="none">
                                 <path
