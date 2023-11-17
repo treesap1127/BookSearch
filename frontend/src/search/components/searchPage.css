@@ -6,6 +6,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background: #FBFAF7;
 }
 
 .wrapper {
@@ -19,6 +20,25 @@ html, body {
     width: 60px;
     height: 60px;
     flex-shrink: 0;
+}
+
+.intro-con {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 85px 0 65px 0;
+}
+
+.intro-text1-wr {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.compass-wr {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
 }
 
 .intro-text1 {
@@ -39,34 +59,42 @@ html, body {
     line-height: 36px; /* 150% */
 }
 
-.search-con-main {
-
+.search-icon-main-wr {
+    display: flex;
+    align-items: center;
 }
 
 .search-icon-main {
-    width: 32px;
-    height: 32px;
+    width: 25px;
+    height: 25px;
     flex-shrink: 0;
+    position: relative;
+    left: 50px;
+}
+
+.search-con-main {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 69px;
 }
 
 .search-main {
     display: flex;
     width: 699px;
-    height: 67px;
-    padding: 16px 526px 15px 20px;
+    height: 50px;
+    padding: 15px 20px 15px 76px;
     align-items: flex-start;
     gap: 24px;
     flex-shrink: 0;
     border-radius: 4px 0px 0px 4px;
     border: 1px solid #1E2128;
-    background: rgba(0, 0, 0, 0.00);
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .search-con-main input::placeholder {
     color: #BDC1CA;
     font-family: Manrope;
-    font-size: 24px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 36px; /* 150% */
@@ -75,7 +103,7 @@ html, body {
 
 .search-main-btn {
     display: inline-flex;
-    height: 67px;
+    height: 50px;
     padding: 16px 19px 15px 20px;
     justify-content: center;
     align-items: center;
@@ -86,15 +114,20 @@ html, body {
     background: #6D31ED;
     color: #FFF;
     font-family: Manrope;
-    font-size: 24px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 36px; /* 150% */
+    border: none;
 }
 
 .search-main-arrow {
     width: 24px;
     height: 24px;
+}
+
+.result-con {
+    margin-bottom: 70px;
 }
 
 .result-text-wr p:nth-child(1) {
@@ -127,93 +160,9 @@ html, body {
     line-height: 36px; /* 156.098% */
 }
 
-.book-each {
-    width: 624px;
-    height: 100%;
-    flex-shrink: 0;
-    border-radius: 4px;
-    background: #FFF;
-    box-shadow: 0px 1px 0px 0px #DDD6CF;
-    padding: 15px;
-}
-
-.book-img {
-    width: 88px;
-    height: 123px;
-    flex-shrink: 0;
-    background: red, lightgray 0px 0px / 100% 100% no-repeat;
-}
-
-.title {
-    color: #302119;
-    font-family: Roboto;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 20px; /* 125% */
-}
-
-.author {
+.book-con {
+    width: 1308px;
     display: flex;
-    width: 86.2px;
-    height: 17px;
-    flex-direction: column;
-    justify-content: center;
-    color: #302119;
-    font-family: Roboto;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px; /* 142.857% */
-}
-
-.publisher {
-    display: flex;
-    width: 86.2px;
-    height: 17px;
-    flex-direction: column;
-    justify-content: center;
-    display: flex;
-    width: 86.2px;
-    height: 17px;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.isbn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #4F546C;
-    font-family: Roboto;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 12px; /* 120% */
-    text-transform: uppercase;
-    width: fit-content;
-    height: 20px;
-    padding: 4px 8px;
-    align-items: center;
-    border-radius: 8px;
-    background: rgba(163, 171, 206, 0.15);
-}
-
-.more-btn {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-
-}
-
-.desc {
-    width: 463px;
-    height: 24px;
-    color: #302119;
-    font-family: Noto Sans KR;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 20px; /* 133.333% */
+    flex-direction: row;
+    flex-wrap: wrap;
 }
