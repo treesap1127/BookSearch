@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import css from './searchPage.css';
+import css from '../style/searchPage.css';
 import Navigation from "../../common/navigation/Navigation";
 import Footer from "../../common/footer/Footer";
 import Book from "./Book";

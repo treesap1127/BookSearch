@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../css/admin.css'
+import '../style/admin.css'
 
 
 const Admin = ({ onUploadSuccess }) => {

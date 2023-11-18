@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import css from './book.css'
+import css from '../style/book.css'
 
 function Book(props) {
     const { item, idx, isToggled, toggleDesc} = props;
