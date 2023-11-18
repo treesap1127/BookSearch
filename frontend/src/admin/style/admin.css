@@ -1,4 +1,4 @@
-.container input[type="file"] {
+.admin_container input[type="file"] {
     position: absolute;
     width: 0;
     height: 0;
@@ -8,12 +8,11 @@
   }
   .uploadBtn {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 13px 20px;
     color:  #ECF0F1;
     vertical-align: middle;
     background-color: #34495E;
     cursor: pointer;
-    height: 20px;
     margin-left: 10px;
     border-radius: 5px;
   }
@@ -55,7 +54,7 @@
     color: #999999;
     border-radius: 5px;
   }
-  .container {
+  .admin_container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -94,6 +93,10 @@
   width: 80%;
   padding: 20px;
   border-radius: 8px;
+}
+.index-list-container>h2{
+  font-size: 25px;
+    margin: 30px 5px;
 }
 
 .table-container {

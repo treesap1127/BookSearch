@@ -66,7 +66,7 @@ const Admin = ({ onUploadSuccess }) => {
         }
         else{
             alert('파일을 등록해주세요');
-            return selectedFile.focus();
+            return 
         }
     };
 
