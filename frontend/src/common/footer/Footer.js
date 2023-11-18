@@ -24,8 +24,8 @@ function Footer() {
                             <a href="/" className="f-sub-menu">Search</a>
                         </div>
                         <div className="f-nav-wr f-nav-wr2">
-                            <a href="/admin" className="f-main-menu">관리</a>
-                            <a href="/admin" className="f-sub-menu">Admin</a>
+                            <a href="/login" className="f-main-menu">관리</a>
+                            <a href="/login" className="f-sub-menu">Admin</a>
                         </div>
                     </div>
                     <div className="subscribe-wr">

@@ -27,7 +27,7 @@ function Navigation(props) {
                     />
                 </div>
                 <div id="setting">
-                    <a href="/">
+                    <a href="/login">
                         <img
                             id="setting-logo"
                             alt="Vector"
