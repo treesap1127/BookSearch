@@ -48,11 +48,11 @@ public class BookRestController {
 		return ResponseEntity.ok(message);
 	}
 
-//	@PostMapping("/uploadByFolder")//index가 파일명이랑
-//	public ResponseEntity<?> uploadByFolder() throws IOException{
-//		String message = bookService.uploadByFolder();
-//		return ResponseEntity.ok(message);
-//	}
+	@PostMapping("/uploadByFolder")//
+	public ResponseEntity<?> uploadByFolder(String dirPath) throws IOException{
+		String message = bookService.uploadByFolder(dirPath);
+		return ResponseEntity.ok(message);
+	}
 
 	/**
 	 * 검색

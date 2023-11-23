@@ -1,15 +1,22 @@
 package com.core.book.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 //import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 
 import com.core.book.model.Book;
@@ -19,14 +26,13 @@ import com.core.utils.BookCsvUploader;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.multipart.MultipartFile;
 
 @Log4j2
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final Indexing<?> indexing;
-//    private String dirPath = "/Users/jihunjang/Downloads/2인 프로젝트/도서 데이터/origin";
-
 
     /**
      * 벌크 인덱싱
@@ -52,48 +58,48 @@ public class BookServiceImpl implements BookService {
         return result;
     }
 
-//    @Override
-//    public String uploadByFolder() throws IOException {
-//        File folder = new File(this.dirPath);
-//        File[] files = folder.listFiles();
-//
-//        if (files != null) {
-//            ExecutorService executorService = Executors.newFixedThreadPool(10);
-//
-//            for (File file : files) {
-//                if (file.isFile() && file.getName().endsWith(".csv")) {
-//                    executorService.submit(() -> {
-//                        try {
-//                            log.info("[thread]: new thread created");
-//                            List<Map<String, Object>> fileData = BookCsvUploader.ReadCsvFile(this.convertFileToMultipartFile(file));
-//                            indexing.bulkIndexing("book", fileData);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        } finally {
-//                            log.info("[thread]: completed");
-//                        }
-//                    });
-//                }
-//            }
-//
-//            executorService.shutdown();
-//            // 모든 작업이 완료될 때까지 대기
-//        }
-//        String msg = "[thread]: upload completed";
-//        log.info(msg);
-//        return msg;
-//    }
+    @Override
+    public String uploadByFolder(String dirPath) throws IOException {
+        File folder = new File(dirPath);
+        File[] files = folder.listFiles();
 
-//    private MultipartFile convertFileToMultipartFile(File file) throws IOException {
-//        FileInputStream input = new FileInputStream(file);
-//        MultipartFile multipartFile = new MockMultipartFile(
-//                "file",
-//                file.getName(),
-//                Files.probeContentType(Paths.get(file.getAbsolutePath())),
-//                input
-//        );
-//        return multipartFile;
-//    }
+        if (files != null) {
+            ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+            for (File file : files) {
+                if (file.isFile() && file.getName().endsWith(".csv")) {
+                    executorService.submit(() -> {
+                        try {
+                            log.info("[thread]: new thread created");
+                            List<Map<String, Object>> fileData = BookCsvUploader.ReadCsvFile(this.convertFileToMultipartFile(file));
+                            indexing.bulkIndexing("book", fileData);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            log.info("[thread]: completed");
+                        }
+                    });
+                }
+            }
+
+            executorService.shutdown();
+            // 모든 작업이 완료될 때까지 대기
+        }
+        String msg = "[thread]: upload completed";
+        log.info(msg);
+        return msg;
+    }
+
+    private MultipartFile convertFileToMultipartFile(File file) throws IOException {
+        FileInputStream input = new FileInputStream(file);
+        MultipartFile multipartFile = new MockMultipartFile(
+                "file",
+                file.getName(),
+                Files.probeContentType(Paths.get(file.getAbsolutePath())),
+                input
+        );
+        return multipartFile;
+    }
 
     @Override
     public List<Book> search(String keyword) throws IOException {
