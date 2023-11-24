@@ -1,10 +1,7 @@
 package com.core.book.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,10 +10,11 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.io.IOUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
-//import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 
 import com.core.book.model.Book;
@@ -27,6 +25,7 @@ import com.core.utils.BookCsvUploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Log4j2
 @Service
@@ -71,8 +70,8 @@ public class BookServiceImpl implements BookService {
                     executorService.submit(() -> {
                         try {
                             log.info("[thread]: new thread created");
-                            List<Map<String, Object>> fileData = BookCsvUploader.ReadCsvFile(this.convertFileToMultipartFile(file));
-                            indexing.bulkIndexing("book", fileData);
+                            List<Map<String, Object>> fileData = BookCsvUploader.ReadCsvFile(this.convert2MultipartFile(file));
+//                            indexing.bulkIndexing("book", fileData);
                         } catch (IOException e) {
                             e.printStackTrace();
                         } finally {
@@ -90,15 +89,15 @@ public class BookServiceImpl implements BookService {
         return msg;
     }
 
-    private MultipartFile convertFileToMultipartFile(File file) throws IOException {
-        FileInputStream input = new FileInputStream(file);
-        MultipartFile multipartFile = new MockMultipartFile(
-                "file",
-                file.getName(),
-                Files.probeContentType(Paths.get(file.getAbsolutePath())),
-                input
-        );
-        return multipartFile;
+    private MultipartFile convert2MultipartFile(File file) throws IOException {
+        FileItem fileItem = new DiskFileItem("originFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
+
+        InputStream is = new FileInputStream(file);
+        OutputStream os = fileItem.getOutputStream();
+        IOUtils.copy(is, os);
+
+        return new CommonsMultipartFile(fileItem);
+
     }
 
     @Override
