@@ -16,15 +16,15 @@ function Navigation(props) {
                     </a>
                 </div>
                 <div className="search-wr">
-                    <img
-                        className="search-icon"
-                        alt="Frame"
-                        src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/frame-4.svg"
-                    />
-                    <input
-                        className="search-input"
-                        placeholder={"Search"}
-                    />
+                    {/*<img*/}
+                    {/*    className="search-icon"*/}
+                    {/*    alt="Frame"*/}
+                    {/*    src="https://cdn.animaapp.com/projects/6554b898d013fc74e5940117/releases/6554b8c9411b2c1ade9b7f0b/img/frame-4.svg"*/}
+                    {/*/>*/}
+                    {/*<input*/}
+                    {/*    className="search-input"*/}
+                    {/*    placeholder={"Search"}*/}
+                    {/*/>*/}
                 </div>
                 <div id="setting">
                     <a href="/login">
