@@ -121,6 +121,7 @@ html, body {
     font-weight: 400;
     line-height: 36px; /* 150% */
     border: none;
+    cursor: pointer;
 }
 
 .search-main-arrow {
