@@ -43,6 +43,10 @@ tasks.withType(Test) {
     useJUnitPlatform()
 }
 
+tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 sourceSets {
     main {
         resources {
