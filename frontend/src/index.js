@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import Login from './admin/Login';
 import Admin from './admin/components/Admin';
-import reportWebVitals from './reportWebVitals';
+// import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -23,4 +23,4 @@ root.render(
   </Router>
 );
 
-reportWebVitals();
+// reportWebVitals();
