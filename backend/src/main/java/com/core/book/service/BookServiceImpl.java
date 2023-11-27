@@ -71,7 +71,7 @@ public class BookServiceImpl implements BookService {
                         try {
                             log.info("[thread]: new thread created");
                             List<Map<String, Object>> fileData = BookCsvUploader.ReadCsvFile(this.convert2MultipartFile(file));
-//                            indexing.bulkIndexing("book", fileData);
+                            indexing.bulkIndexing("book", fileData);
                         } catch (IOException e) {
                             e.printStackTrace();
                         } finally {
