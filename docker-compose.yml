@@ -1,0 +1,63 @@
+version: '3'
+services:
+  nginx:
+    container_name: booksearcher_nginx
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    environment:
+      - TZ=Asia/Seoul
+    ports:
+      - 1234:80
+    depends_on:
+      # - frontend
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  # frontend:
+  #   container_name: booksearcher_frontend
+  #   restart: always
+  #   environment:
+  #     - TZ=Asia/Seoul
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./frontend
+  #   stdin_open: true
+  #   network_mode: host
+  backend:
+    container_name: booksearcher_backend
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    environment:
+      - TZ=Asia/Seoul
+    mem_limit: 2g
+    ports:
+      - 8081:8081
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.1
+    container_name: es01
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+      - ./elasticsearch-docker/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - 9200:9200
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  data01:
+    driver: local
+
+# networks:
+#   host:
+#     external: true
