@@ -9,7 +9,7 @@ spring:
       max-request-size : 500MB
 
 elasticsearch:
-  ip: localhost
+  ip: 172.18.0.3
   port: 9200
   protocol: http
   rest:
