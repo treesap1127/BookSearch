@@ -29,6 +29,6 @@ public class IpCheck {
 
     public boolean isLocalIp(String ipAddress) {
         // 로컬 PC 여부 확인 (여러 다른 조건을 추가할 수 있음)
-        return ipAddress.startsWith("192.168.") || ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1") || ipAddress.equals("115.95.23.27");
+        return ipAddress.startsWith("192.168.") || ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1");
     }
 }
