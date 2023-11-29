@@ -49,7 +49,7 @@ const Admin = ({ onUploadSuccess }) => {
                 const formData = new FormData();
                 formData.append('excelFile', selectedFile);
 
-                const response = await axios.post('http://localhost:8081/api/book/bookUpload', formData, {
+                const response = await axios.post('/api/book/bookUpload', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -72,7 +72,7 @@ const Admin = ({ onUploadSuccess }) => {
 
     const deleteIndex = async () => {
         try {
-            const response = await axios.post('http://localhost:8081/api/book/deleteIndex', {
+            const response = await axios.post('/api/book/deleteIndex', {
                 headers: {},
             });
             
@@ -94,7 +94,7 @@ const Admin = ({ onUploadSuccess }) => {
             console.error('토큰이 없습니다.');
             return;
           }
-          await axios.post('http://localhost:8081/api/admin/logout', storedToken);
+          await axios.post('/api/admin/logout', storedToken);
     
           localStorage.removeItem('jwtToken');
          
@@ -121,7 +121,7 @@ const Admin = ({ onUploadSuccess }) => {
         const checkJwtValidity = async () => {
             const token = localStorage.getItem('jwtToken');
             try {
-                const response = await fetch('http://localhost:8081/api/jwtCheck?jwt=' + token);
+                const response = await fetch('/api/jwtCheck?jwt=' + token);
                 const isValid = await response.text();
                 if (isValid === 'true') {
                     // 유효하지 않은 토큰 처리

@@ -15,7 +15,7 @@ const Login = ({ onLoginSuccess }) => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('http://localhost:8081/api/ipCheck');
+            const response = await axios.get('/api/ipCheck');
             setIpInfo(response.data);
             if (!response.data.ipAllow) {
                 navigate('/');
@@ -48,7 +48,7 @@ const Login = ({ onLoginSuccess }) => {
             }
 
             // Send login credentials to the server
-            const response = await axios.post('http://localhost:8081/api/admin/auth', {
+            const response = await axios.post('/api/admin/auth', {
                 username,
                 password,
             });
