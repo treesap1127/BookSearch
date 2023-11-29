@@ -1,63 +1,83 @@
 version: '3'
 services:
-  nginx:
-    container_name: booksearcher_nginx
+  bs_docker_nginx:
+    container_name: bs_docker_nginx
     restart: always
     build:
-      dockerfile: Dockerfile
       context: ./nginx
-    environment:
-      - TZ=Asia/Seoul
+      dockerfile: Dockerfile
     ports:
-      - 1234:80
+      - "1234:80"
     depends_on:
-      # - frontend
-      - backend
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-  # frontend:
-  #   container_name: booksearcher_frontend
-  #   restart: always
-  #   environment:
-  #     - TZ=Asia/Seoul
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./frontend
-  #   stdin_open: true
-  #   network_mode: host
-  backend:
-    container_name: booksearcher_backend
+      - bs_docker_front
+      - bs_docker_back
+
+  bs_docker_front:
+     container_name: bs_docker_front
+     restart: always
+     environment:
+       - TZ=Asia/Seoul
+     build:
+       context: ./frontend
+       dockerfile: Dockerfile
+     ports:
+       - "3000:3000"
+     stdin_open: true
+
+  bs_docker_back:
+    container_name: bs_docker_back
     restart: always
     build:
-      dockerfile: Dockerfile
       context: ./backend
-    environment:
-      - TZ=Asia/Seoul
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
     mem_limit: 2g
-    ports:
-      - 8081:8081
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
-  es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.1
-    container_name: es01
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data01:/usr/share/elasticsearch/data
-      - ./elasticsearch-docker/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-    ports:
-      - 9200:9200
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-volumes:
-  data01:
-    driver: local
-
-# networks:
-#   host:
-#     external: true
+#  es01:
+#    container_name: es01
+#    build:
+#      context: ./elasticsearch-docker
+#      args:
+#        VERSION: 7.11.1
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    volumes:
+#      - data01:/usr/share/elasticsearch/data
+#      - ./elasticsearch-docker/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+#    ports:
+#      - "9200:9200"
+#
+#    environment:
+#      - "ES_JAVA_OPTS=-Xms2000m -Xmx2000m"
+#      - xpack.security.enabled=false
+#      - xpack.security.http.ssl.enabled=false
+#      - xpack.security.transport.ssl.enabled=false
+#
+#  es02:
+#    container_name: es02
+#    build:
+#      context: ./elasticsearch-docker
+#      args:
+#        VERSION: 7.11.1
+#    environment:
+#      - node.name=node-2
+#      - cluster.name=es-cluster-1
+#      - discovery.seed_hosts=es01
+#      - cluster.initial_master_nodes=es01,es02
+#      - bootstrap.memory_lock=true
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    volumes:
+#      - data02:/usr/share/elasticsearch/data
+#
+#volumes:
+#  data01:
+#    driver: local
+#  data02:
+#    driver: local

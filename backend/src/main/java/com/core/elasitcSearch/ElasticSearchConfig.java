@@ -1,4 +1,4 @@
-package com.core.config;
+package com.core.elasitcSearch;
 
 import static java.lang.Integer.parseInt;
 

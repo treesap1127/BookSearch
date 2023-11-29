@@ -3,7 +3,7 @@ node.name: "node-1"
 node.max_local_storage_nodes: 1
 http.max_content_length: 1024mb
 http.cors.enabled: true
-http.cors.allow-origin: "http://localhost:3000"
+http.cors.allow-origin: "http://bs_docker_front:3000"
 
 
 # ======================== Elasticsearch Configuration =========================
@@ -74,7 +74,7 @@ http.port: 9200
 # Pass an initial list of hosts to perform discovery when this node is started:
 # The default list of hosts is ["127.0.0.1", "[::1]"]
 #
-#discovery.seed_hosts: ["elastic"]
+#discovery.seed_hosts: ["elastic"]?????????????????????????
 #
 # Bootstrap the cluster using an initial set of master-eligible nodes:
 #

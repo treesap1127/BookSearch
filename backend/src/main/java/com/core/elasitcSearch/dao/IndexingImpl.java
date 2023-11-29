@@ -32,7 +32,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
 
-import com.core.config.ElasticSearchConfig;
+import com.core.elasitcSearch.ElasticSearchConfig;
 import com.core.elasitcSearch.IndexEnum;
 
 import lombok.RequiredArgsConstructor;
