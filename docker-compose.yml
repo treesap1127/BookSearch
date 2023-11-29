@@ -8,31 +8,31 @@ services:
       dockerfile: Dockerfile
     ports:
       - "1234:80"
-    depends_on:
-      - bs_docker_front
-      - bs_docker_back
+#    depends_on:
+#      - bs_docker_front
+#      - bs_docker_back
 
-  bs_docker_front:
-     container_name: bs_docker_front
-     restart: always
-     environment:
-       - TZ=Asia/Seoul
-     build:
-       context: ./frontend
-       dockerfile: Dockerfile
-     ports:
-       - "3000:3000"
-     stdin_open: true
-
-  bs_docker_back:
-    container_name: bs_docker_back
-    restart: always
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "8081:8081"
-    mem_limit: 2g
+#  bs_docker_front:
+#     container_name: bs_docker_front
+#     restart: always
+#     environment:
+#       - TZ=Asia/Seoul
+#     build:
+#       context: ./frontend
+#       dockerfile: Dockerfile
+#     ports:
+#       - "3000:3000"
+#     stdin_open: true
+#
+#  bs_docker_back:
+#    container_name: bs_docker_back
+#    restart: always
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8081:8081"
+#    mem_limit: 2g
 
 #  es01:
 #    container_name: es01
