@@ -16,7 +16,7 @@ function SearchPage() {
     async function search() {
         try {
             const response = await axios.get(
-                'http://localhost:8081/api/book/search',
+                '/api/book/search',
                 {
                     params: {
                         keyword: keyword
