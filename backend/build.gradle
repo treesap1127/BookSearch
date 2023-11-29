@@ -50,7 +50,7 @@ tasks.processResources {
 sourceSets {
     main {
         resources {
-            srcDirs file("$projectDir/src/main/resources")
+            srcDirs "src/main/resource/${profile}"
         }
     }
 }

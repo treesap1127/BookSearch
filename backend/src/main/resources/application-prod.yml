@@ -26,3 +26,6 @@ logging:
       springframework:
         data:
           elasticsearch: DEBUG
+
+cors:
+  url: http://localhost:3000
