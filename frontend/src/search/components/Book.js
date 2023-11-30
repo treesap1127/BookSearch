@@ -28,7 +28,7 @@ function Book(props) {
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                          viewBox="0 0 16 16"
                          fill="none">
-                        <g clip-path="url(#clip0_41_68)">
+                        <g clipPath="url(#clip0_41_68)">
                             <rect y="7" width="8" height="2" fill="#9A938D"/>
                             <rect x="8" y="7" width="8" height="2" fill="#9A938D"/>
                             <rect x="7" width="2" height="8" fill="#9A938D"/>

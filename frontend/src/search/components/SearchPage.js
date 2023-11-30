@@ -7,13 +7,14 @@ import axios from "axios";
 
 function SearchPage() {
     const [result, setResult] = useState([]);
-    const [keyword, setKeyword] = useState("");
+    const [mainKeyword, setMainKeyword] = useState("");
+    const [navKeyword, setNavKeyword] = useState("");
     const [clickedBook, setClickedBook] = useState(-1);
     const toggleDesc = (index) => {
         setClickedBook(index);
     };
 
-    async function search() {
+    async function search(keyword) {
         try {
             const response = await axios.get(
                 '/api/book/search',
@@ -31,13 +32,23 @@ function SearchPage() {
         }
     }
 
-    function handleKeyPress(e) {
-        if (e.key === 'Enter') search();
+    function handleKeyPress(e, keyword, searchType) {
+        if (e.key === 'Enter') search(keyword);
+
+        if (searchType === 'main') {
+            setNavKeyword('');
+        } else if (searchType === 'nav') {
+            setMainKeyword('');
+        }
     }
 
     return (
         <div className="container">
-            <Navigation/>
+            <Navigation
+                handleKeyPress={handleKeyPress}
+                navKeyword={navKeyword}
+                setNavKeyword={setNavKeyword}
+            />
             <div className="wrapper">
                 <div>
                     <div className="intro-con">
@@ -65,9 +76,9 @@ function SearchPage() {
                         <input
                             className="search-main"
                             placeholder={"Search"}
-                            value={keyword}
-                            onChange={(e) => setKeyword(e.target.value)}
-                            onKeyDown={handleKeyPress}
+                            value={mainKeyword}
+                            onChange={(e) => setMainKeyword(e.target.value)}
+                            onKeyDown={e => handleKeyPress(e, mainKeyword, 'main')}
                         />
                         <div>
                             <button className="search-main-btn" onClick={search}>모두</button>

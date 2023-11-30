@@ -74,7 +74,8 @@ public class LoginController {
             String clientIp = ipCheck.getClientIp(request);
 
             // 로컬 PC 여부 확인
-            boolean isLocal = ipCheck.isLocalIp(clientIp);
+//            boolean isLocal = ipCheck.isLocalIp(clientIp);
+            boolean isLocal = true;
 
             // 응답 데이터 설정
             response.put("ip", clientIp);
