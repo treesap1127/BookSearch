@@ -81,7 +81,7 @@ function SearchPage() {
                             onKeyDown={e => handleKeyPress(e, mainKeyword, 'main')}
                         />
                         <div>
-                            <button className="search-main-btn" onClick={search}>모두</button>
+                            <button className="search-main-btn" onClick={e => search(mainKeyword)}>검색</button>
                             <svg className="search-main-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                  viewBox="0 0 24 24" fill="none">
                                 <path
